@@ -8,7 +8,7 @@
     </parent>
     <groupId>com.github.usc</groupId>
     <artifactId>wechat-mp-sdk</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>wechat-mp-sdk</name>
     <url>http://weibo.com/lishunli</url>
