@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.EnumUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.usc.wechat.mp.sdk.factory.ReplyEnumFactory;
 import org.usc.wechat.mp.sdk.vo.ReplyDetail;
 import org.usc.wechat.mp.sdk.vo.ReplyDetailWarpper;
@@ -49,13 +50,13 @@ public class ReplyUtil {
         }
 
         String replyType = replyDetailWarpper.getReplyType();
-        List<ReplyDetail> replyDetails = replyDetailWarpper.getReplyDetails();
 
-        ReplyEnumFactory replyEnumFactory = EnumUtils.getEnum(ReplyEnumFactory.class, replyType);
+        ReplyEnumFactory replyEnumFactory = EnumUtils.getEnum(ReplyEnumFactory.class, StringUtils.upperCase(replyType));
         if (replyEnumFactory == null) {
             return null;
         }
 
+        List<ReplyDetail> replyDetails = replyDetailWarpper.getReplyDetails();
         return replyEnumFactory.buildReply(replyDetails);
     }
 

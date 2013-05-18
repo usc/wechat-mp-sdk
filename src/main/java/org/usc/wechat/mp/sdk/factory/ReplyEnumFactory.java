@@ -23,12 +23,6 @@ public enum ReplyEnumFactory {
             return ReplyUtil.buildNewsReply(replyDetails, getReplyType());
         }
     },
-    MULTINEWS("news") {
-        @Override
-        public Reply buildReply(List<ReplyDetail> replyDetails) {
-            return ReplyUtil.buildNewsReply(replyDetails, getReplyType());
-        }
-    },
     MUSIC("music") {
         @Override
         public Reply buildReply(List<ReplyDetail> replyDetails) {

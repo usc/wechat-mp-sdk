@@ -24,16 +24,24 @@ public class TextPushParser extends AbstractPushParser {
 
         // TextPush textPush = (TextPush) push;
 
-        ReplyDetail replyDetail = new ReplyDetail();
-        replyDetail.setDescription("hello world");
-        List<ReplyDetail> replyDetails = Arrays.asList(replyDetail);
+        // TODO please custom it.
+        ReplyDetail replyDetail1 = new ReplyDetail();
+        replyDetail1.setTitle("fork me");
+        replyDetail1.setMediaUrl("http://c.hiphotos.baidu.com/baike/c%3DbaikeA4%2C10%2C95/sign=c1767bbf4b36acaf4de0c1ad15b2e851/29381f30e924b899a39841be6e061d950b7b02087af4d6b3.jpg");
+        replyDetail1.setUrl("https://github.com/usc/wechat-mp-sdk");
+        replyDetail1.setDescription("hello world, wechat mp sdk is coming");
 
-        // TODO-Shunli: TBW
+        ReplyDetail replyDetail2 = new ReplyDetail();
+        replyDetail2.setTitle("star me");
+        replyDetail2.setMediaUrl("http://e.hiphotos.baidu.com/baike/pic/item/96dda144ad345982665e49810df431adcaef84c9.jpg");
+        replyDetail2.setUrl("https://github.com/usc/wechat-mp-web");
+        replyDetail2.setDescription("wechat mp web demo");
+
+        List<ReplyDetail> replyDetails = Arrays.asList(replyDetail1, replyDetail2);
         ReplyDetailWarpper replyDetailWarpper = new ReplyDetailWarpper(ReplyEnumFactory.NEWS.getReplyType(), replyDetails);
 
         Reply reply = ReplyUtil.parseReplyWarpper(replyDetailWarpper);
         return ReplyUtil.buildReply(reply, push);
-
     }
 
 }
