@@ -7,6 +7,6 @@ import org.usc.wechat.mp.sdk.vo.reply.Reply;
  *
  * @author Shunli
  */
-public abstract class PushParser {
+public abstract class AbstractPushParser {
     public abstract Reply parse(Push push);
 }

@@ -7,14 +7,14 @@ package org.usc.wechat.mp.sdk.vo;
 public enum EventPushType {
     SUBSCRIBE("subscribe"), UNSUBSCRIBE("unsubscribe"), CLICK("CLICK");
 
-    private String typeInDb;
+    private String type;
 
-    private EventPushType(String typeInDb) {
-        this.typeInDb = typeInDb;
+    private EventPushType(String type) {
+        this.type = type;
     }
 
-    public String getTypeInDb() {
-        return typeInDb;
+    public String getType() {
+        return type;
     }
 
 }

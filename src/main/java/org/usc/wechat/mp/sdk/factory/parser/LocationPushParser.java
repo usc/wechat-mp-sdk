@@ -8,7 +8,7 @@ import org.usc.wechat.mp.sdk.vo.reply.Reply;
  *
  * @author Shunli
  */
-public class LocationPushParser extends PushParser {
+public class LocationPushParser extends AbstractPushParser {
     @Override
     public Reply parse(Push push) {
         if (!(push instanceof LocationPush)) {

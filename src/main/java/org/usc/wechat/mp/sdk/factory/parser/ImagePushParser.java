@@ -8,7 +8,7 @@ import org.usc.wechat.mp.sdk.vo.reply.Reply;
  *
  * @author Shunli
  */
-public class ImagePushParser extends PushParser {
+public class ImagePushParser extends AbstractPushParser {
     @Override
     public Reply parse(Push push) {
         if (!(push instanceof ImagePush)) {

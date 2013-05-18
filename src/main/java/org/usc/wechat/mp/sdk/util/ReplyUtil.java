@@ -2,9 +2,9 @@ package org.usc.wechat.mp.sdk.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.EnumUtils;
 import org.usc.wechat.mp.sdk.factory.ReplyEnumFactory;
 import org.usc.wechat.mp.sdk.vo.ReplyDetail;
 import org.usc.wechat.mp.sdk.vo.ReplyDetailWarpper;
@@ -21,26 +21,15 @@ import org.usc.wechat.mp.sdk.vo.reply.TextReply;
  * @author Shunli
  */
 public class ReplyUtil {
-    private static final Random random = new Random();
-
-    public static Reply randomReply(List<Reply> replys) {
-        if (replys == null || replys.isEmpty()) {
-            return null;
-        }
-
-        // random
-        return replys.get(random.nextInt(replys.size()));
-    }
-
     public static Reply buildReply(Reply reply, Push push) {
         try {
             if (reply != null) {
                 // keep is new instance
                 Reply newReply = (Reply) BeanUtils.cloneBean(reply);
 
-                newReply.setCreateTime(getUnixTimeStamp());
                 newReply.setToUserName(push.getFromUserName());
                 newReply.setFromUserName(push.getToUserName());
+                newReply.setCreateTime(getUnixTimeStamp());
 
                 return newReply;
             }
@@ -62,7 +51,7 @@ public class ReplyUtil {
         String replyType = replyDetailWarpper.getReplyType();
         List<ReplyDetail> replyDetails = replyDetailWarpper.getReplyDetails();
 
-        ReplyEnumFactory replyEnumFactory = EnumUtil.getEnumFromString(ReplyEnumFactory.class, replyType);
+        ReplyEnumFactory replyEnumFactory = EnumUtils.getEnum(ReplyEnumFactory.class, replyType);
         if (replyEnumFactory == null) {
             return null;
         }
