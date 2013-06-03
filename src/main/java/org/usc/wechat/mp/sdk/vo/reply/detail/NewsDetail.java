@@ -1,4 +1,4 @@
-package org.usc.wechat.mp.sdk.vo.reply;
+package org.usc.wechat.mp.sdk.vo.reply.detail;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -12,27 +12,27 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author Shunli
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class MusicDetail {
+public class NewsDetail {
     @XmlElement(name = "Title")
     private String title;
 
     @XmlElement(name = "Description")
     private String description;
 
-    @XmlElement(name = "MusicUrl")
-    private String musicUrl;
+    @XmlElement(name = "PicUrl")
+    private String picUrl;
 
-    @XmlElement(name = "HQMusicUrl")
-    private String hQMusicUrl;
+    @XmlElement(name = "Url")
+    private String url;
 
-    public MusicDetail() {
+    public NewsDetail() {
     }
 
-    public MusicDetail(String title, String description, String musicUrl, String hQMusicUrl) {
+    public NewsDetail(String title, String description, String picUrl, String url) {
         this.title = title;
         this.description = description;
-        this.musicUrl = musicUrl;
-        this.hQMusicUrl = hQMusicUrl;
+        this.picUrl = picUrl;
+        this.url = url;
     }
 
     public String getTitle() {
@@ -51,20 +51,20 @@ public class MusicDetail {
         this.description = description;
     }
 
-    public String getMusicUrl() {
-        return musicUrl;
+    public String getPicUrl() {
+        return picUrl;
     }
 
-    public void setMusicUrl(String musicUrl) {
-        this.musicUrl = musicUrl;
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
     }
 
-    public String gethQMusicUrl() {
-        return hQMusicUrl;
+    public String getUrl() {
+        return url;
     }
 
-    public void sethQMusicUrl(String hQMusicUrl) {
-        this.hQMusicUrl = hQMusicUrl;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Override

@@ -7,10 +7,6 @@ import org.usc.wechat.mp.sdk.vo.reply.Reply;
  *
  * @author Shunli
  */
-public class ImagePushParser implements PushParser {
-    @Override
-    public Reply parse(Push push) {
-        return null;
-    }
-
+public interface PushParser {
+    Reply parse(Push push);
 }

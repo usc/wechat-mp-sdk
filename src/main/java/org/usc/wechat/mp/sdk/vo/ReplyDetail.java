@@ -6,8 +6,8 @@ package org.usc.wechat.mp.sdk.vo;
  */
 public class ReplyDetail {
     private String title;
-    private String mediaUrl;
-    private String url;
+    private String mediaUrl;// in the presence MediaId when Media file Reply
+    private String url; // in the presence ThumbMediaId when Media file Reply
     private String description;
 
     public ReplyDetail() {

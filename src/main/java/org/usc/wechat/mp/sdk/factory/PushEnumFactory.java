@@ -4,7 +4,10 @@ import org.usc.wechat.mp.sdk.factory.parser.EventPushParser;
 import org.usc.wechat.mp.sdk.factory.parser.ImagePushParser;
 import org.usc.wechat.mp.sdk.factory.parser.LinkPushParser;
 import org.usc.wechat.mp.sdk.factory.parser.LocationPushParser;
+import org.usc.wechat.mp.sdk.factory.parser.PushParser;
 import org.usc.wechat.mp.sdk.factory.parser.TextPushParser;
+import org.usc.wechat.mp.sdk.factory.parser.VideoPushParser;
+import org.usc.wechat.mp.sdk.factory.parser.VoicePushParser;
 import org.usc.wechat.mp.sdk.util.XmlUtil;
 import org.usc.wechat.mp.sdk.vo.push.EventPush;
 import org.usc.wechat.mp.sdk.vo.push.ImagePush;
@@ -12,6 +15,8 @@ import org.usc.wechat.mp.sdk.vo.push.LinkPush;
 import org.usc.wechat.mp.sdk.vo.push.LocationPush;
 import org.usc.wechat.mp.sdk.vo.push.Push;
 import org.usc.wechat.mp.sdk.vo.push.TextPush;
+import org.usc.wechat.mp.sdk.vo.push.VideoPush;
+import org.usc.wechat.mp.sdk.vo.push.VoicePush;
 import org.usc.wechat.mp.sdk.vo.reply.Reply;
 
 /**
@@ -21,60 +26,90 @@ import org.usc.wechat.mp.sdk.vo.reply.Reply;
 public enum PushEnumFactory {
     TEXT {
         @Override
-        public Push convert(String message) {
-            return XmlUtil.unmarshal(message, TextPush.class);
+        protected Class<? extends Push> getPushClass() {
+            return TextPush.class;
         }
 
         @Override
-        public Reply parse(Push push) {
-            return new TextPushParser().parse(push);
+        protected PushParser getPushParser() {
+            return new TextPushParser();
         }
     },
     EVENT {
         @Override
-        public Push convert(String message) {
-            return XmlUtil.unmarshal(message, EventPush.class);
+        protected Class<? extends Push> getPushClass() {
+            return EventPush.class;
         }
 
         @Override
-        public Reply parse(Push push) {
-            return new EventPushParser().parse(push);
+        protected PushParser getPushParser() {
+            return new EventPushParser();
         }
     },
     IMAGE {
         @Override
-        public Push convert(String message) {
-            return XmlUtil.unmarshal(message, ImagePush.class);
+        protected Class<? extends Push> getPushClass() {
+            return ImagePush.class;
         }
 
         @Override
-        public Reply parse(Push push) {
-            return new ImagePushParser().parse(push);
+        protected PushParser getPushParser() {
+            return new ImagePushParser();
         }
     },
     LINK {
         @Override
-        public Push convert(String message) {
-            return XmlUtil.unmarshal(message, LinkPush.class);
+        protected Class<? extends Push> getPushClass() {
+            return LinkPush.class;
         }
 
         @Override
-        public Reply parse(Push push) {
-            return new LinkPushParser().parse(push);
+        protected PushParser getPushParser() {
+            return new LinkPushParser();
         }
     },
     LOCATION {
         @Override
-        public Push convert(String message) {
-            return XmlUtil.unmarshal(message, LocationPush.class);
+        protected Class<? extends Push> getPushClass() {
+            return LocationPush.class;
         }
 
         @Override
-        public Reply parse(Push push) {
-            return new LocationPushParser().parse(push);
+        protected PushParser getPushParser() {
+            return new LocationPushParser();
+        }
+    },
+    VOICE { // not open
+        @Override
+        protected Class<? extends Push> getPushClass() {
+            return VoicePush.class;
+        }
+
+        @Override
+        protected PushParser getPushParser() {
+            return new VoicePushParser();
+        }
+    },
+    VIDEO { // not open
+        @Override
+        protected Class<? extends Push> getPushClass() {
+            return VideoPush.class;
+        }
+
+        @Override
+        protected PushParser getPushParser() {
+            return new VideoPushParser();
         }
     };
 
-    public abstract Push convert(String message);
-    public abstract Reply parse(Push push);
+    protected abstract Class<? extends Push> getPushClass();
+    protected abstract PushParser getPushParser();
+
+    public Push convert(String message) {
+        return XmlUtil.unmarshal(message, getPushClass());
+    }
+
+    public Reply parse(Push push) {
+        return getPushParser().parse(push);
+    }
 }

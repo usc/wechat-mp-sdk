@@ -2,7 +2,13 @@ package org.usc.wechat.mp.sdk.factory;
 
 import java.util.List;
 
-import org.usc.wechat.mp.sdk.util.ReplyUtil;
+import org.usc.wechat.mp.sdk.factory.builder.ImageReplyBuilder;
+import org.usc.wechat.mp.sdk.factory.builder.MusicReplyBuilder;
+import org.usc.wechat.mp.sdk.factory.builder.NewsReplyBuilder;
+import org.usc.wechat.mp.sdk.factory.builder.ReplyBuilder;
+import org.usc.wechat.mp.sdk.factory.builder.TextReplyBuilder;
+import org.usc.wechat.mp.sdk.factory.builder.VideoReplyBuilder;
+import org.usc.wechat.mp.sdk.factory.builder.VoiceReplyBuilder;
 import org.usc.wechat.mp.sdk.vo.ReplyDetail;
 import org.usc.wechat.mp.sdk.vo.reply.Reply;
 
@@ -13,22 +19,39 @@ import org.usc.wechat.mp.sdk.vo.reply.Reply;
 public enum ReplyEnumFactory {
     TEXT("text") {
         @Override
-        public Reply buildReply(List<ReplyDetail> replyDetails) {
-            return ReplyUtil.buildTextReply(replyDetails, getReplyType());
+        protected ReplyBuilder getReplyBuilder() {
+            return new TextReplyBuilder();
         }
     },
     NEWS("news") {
         @Override
-        public Reply buildReply(List<ReplyDetail> replyDetails) {
-            return ReplyUtil.buildNewsReply(replyDetails, getReplyType());
+        protected ReplyBuilder getReplyBuilder() {
+            return new NewsReplyBuilder();
         }
     },
     MUSIC("music") {
         @Override
-        public Reply buildReply(List<ReplyDetail> replyDetails) {
-            return ReplyUtil.buildMusicReply(replyDetails, getReplyType());
+        protected ReplyBuilder getReplyBuilder() {
+            return new MusicReplyBuilder();
         }
-
+    },
+    IMAGE("image") {
+        @Override
+        protected ReplyBuilder getReplyBuilder() {
+            return new ImageReplyBuilder();
+        }
+    },
+    VOICE("voice") {
+        @Override
+        protected ReplyBuilder getReplyBuilder() {
+            return new VoiceReplyBuilder();
+        }
+    },
+    VIDEO("video") {
+        @Override
+        protected ReplyBuilder getReplyBuilder() {
+            return new VideoReplyBuilder();
+        }
     };
 
     private String replyType;
@@ -37,7 +60,15 @@ public enum ReplyEnumFactory {
         this.replyType = replyType;
     }
 
-    public abstract Reply buildReply(List<ReplyDetail> replyDetails);
+    protected abstract ReplyBuilder getReplyBuilder();
+
+    public Reply buildReply(List<ReplyDetail> replyDetails) {
+        if (replyDetails == null || replyDetails.isEmpty()) {
+            return null;
+        }
+
+        return getReplyBuilder().buildReply(replyDetails);
+    }
 
     public String getReplyType() {
         return replyType;

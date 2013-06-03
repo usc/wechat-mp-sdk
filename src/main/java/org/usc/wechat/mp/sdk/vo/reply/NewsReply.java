@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.usc.wechat.mp.sdk.vo.reply.detail.NewsDetail;
+
 /**
  *
  * @author Shunli
@@ -20,7 +22,7 @@ public class NewsReply extends Reply {
 
     @XmlElementWrapper(name = "Articles")
     @XmlElement(name = "item")
-    private List<ArticleDetail> articles;
+    private List<NewsDetail> articles;
 
     public int getArticleCount() {
         return ArticleCount;
@@ -30,11 +32,11 @@ public class NewsReply extends Reply {
         ArticleCount = articleCount;
     }
 
-    public List<ArticleDetail> getArticles() {
+    public List<NewsDetail> getArticles() {
         return articles;
     }
 
-    public void setArticles(List<ArticleDetail> articles) {
+    public void setArticles(List<NewsDetail> articles) {
         this.articles = articles;
     }
 

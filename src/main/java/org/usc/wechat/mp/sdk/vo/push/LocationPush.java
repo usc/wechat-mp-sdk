@@ -13,10 +13,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class LocationPush extends Push {
     @XmlElement(name = "Location_X")
-    private String location_X;
+    private String locationX;
 
     @XmlElement(name = "Location_Y")
-    private String location_Y;
+    private String locationY;
 
     @XmlElement(name = "Scale")
     private String scale;
@@ -24,20 +24,20 @@ public class LocationPush extends Push {
     @XmlElement(name = "Label")
     private String label;
 
-    public String getLocation_X() {
-        return location_X;
+    public String getLocationX() {
+        return locationX;
     }
 
-    public void setLocation_X(String location_X) {
-        this.location_X = location_X;
+    public void setLocationX(String locationX) {
+        this.locationX = locationX;
     }
 
-    public String getLocation_Y() {
-        return location_Y;
+    public String getLocationY() {
+        return locationY;
     }
 
-    public void setLocation_Y(String location_Y) {
-        this.location_Y = location_Y;
+    public void setLocationY(String locationY) {
+        this.locationY = locationY;
     }
 
     public String getScale() {

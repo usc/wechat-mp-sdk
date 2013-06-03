@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.usc.wechat.mp.sdk.vo.reply.detail.MusicDetail;
+import org.usc.wechat.mp.sdk.vo.reply.detail.MediaDetail;
 
 /**
  *
@@ -13,16 +13,16 @@ import org.usc.wechat.mp.sdk.vo.reply.detail.MusicDetail;
  */
 @XmlRootElement(name = "xml")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class MusicReply extends Reply {
-    @XmlElement(name = "Music")
-    private MusicDetail musicDetail;
+public class ImageReply extends Reply {
+    @XmlElement(name = "Image")
+    private MediaDetail imageDetail;
 
-    public MusicDetail getMusicDetail() {
-        return musicDetail;
+    public MediaDetail getImageDetail() {
+        return imageDetail;
     }
 
-    public void setMusicDetail(MusicDetail musicDetail) {
-        this.musicDetail = musicDetail;
+    public void setImageDetail(MediaDetail imageDetail) {
+        this.imageDetail = imageDetail;
     }
 
 }
