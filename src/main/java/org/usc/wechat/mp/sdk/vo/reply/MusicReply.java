@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.usc.wechat.mp.sdk.factory.ReplyEnumFactory;
 import org.usc.wechat.mp.sdk.vo.reply.detail.MusicDetail;
 
 /**
@@ -16,6 +17,17 @@ import org.usc.wechat.mp.sdk.vo.reply.detail.MusicDetail;
 public class MusicReply extends Reply {
     @XmlElement(name = "Music")
     private MusicDetail musicDetail;
+
+    {
+        super.setMsgType(ReplyEnumFactory.MUSIC.getReplyType());
+    }
+
+    protected MusicReply() {
+    }
+
+    public MusicReply(MusicDetail musicDetail) {
+        this.musicDetail = musicDetail;
+    }
 
     public MusicDetail getMusicDetail() {
         return musicDetail;

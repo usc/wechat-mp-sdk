@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.usc.wechat.mp.sdk.factory.ReplyEnumFactory;
 import org.usc.wechat.mp.sdk.vo.reply.detail.NewsDetail;
 
 /**
@@ -18,18 +19,30 @@ import org.usc.wechat.mp.sdk.vo.reply.detail.NewsDetail;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class NewsReply extends Reply {
     @XmlElement(name = "ArticleCount")
-    private int ArticleCount;
+    private int articleCount;
 
     @XmlElementWrapper(name = "Articles")
     @XmlElement(name = "item")
     private List<NewsDetail> articles;
 
+    {
+        super.setMsgType(ReplyEnumFactory.NEWS.getReplyType());
+    }
+
+    protected NewsReply() {
+    }
+
+    public NewsReply(int articleCount, List<NewsDetail> articles) {
+        this.articleCount = articleCount;
+        this.articles = articles;
+    }
+
     public int getArticleCount() {
-        return ArticleCount;
+        return articleCount;
     }
 
     public void setArticleCount(int articleCount) {
-        ArticleCount = articleCount;
+        this.articleCount = articleCount;
     }
 
     public List<NewsDetail> getArticles() {

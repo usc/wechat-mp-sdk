@@ -25,14 +25,22 @@ public class MusicDetail {
     @XmlElement(name = "HQMusicUrl")
     private String hQMusicUrl;
 
-    public MusicDetail() {
+    @XmlElement(name = "ThumbMediaId")
+    private String thumbMediaId;
+
+    protected MusicDetail() {
     }
 
-    public MusicDetail(String title, String description, String musicUrl, String hQMusicUrl) {
+    public MusicDetail(String thumbMediaId) {
+        this.thumbMediaId = thumbMediaId;
+    }
+
+    public MusicDetail(String title, String description, String musicUrl, String hQMusicUrl, String thumbMediaId) {
         this.title = title;
         this.description = description;
         this.musicUrl = musicUrl;
         this.hQMusicUrl = hQMusicUrl;
+        this.thumbMediaId = thumbMediaId;
     }
 
     public String getTitle() {
@@ -65,6 +73,14 @@ public class MusicDetail {
 
     public void sethQMusicUrl(String hQMusicUrl) {
         this.hQMusicUrl = hQMusicUrl;
+    }
+
+    public String getThumbMediaId() {
+        return thumbMediaId;
+    }
+
+    public void setThumbMediaId(String thumbMediaId) {
+        this.thumbMediaId = thumbMediaId;
     }
 
     @Override

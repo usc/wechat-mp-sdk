@@ -2,11 +2,10 @@ package org.usc.wechat.mp.sdk.factory.builder;
 
 import java.util.List;
 
-import org.usc.wechat.mp.sdk.factory.ReplyEnumFactory;
 import org.usc.wechat.mp.sdk.vo.ReplyDetail;
 import org.usc.wechat.mp.sdk.vo.reply.Reply;
 import org.usc.wechat.mp.sdk.vo.reply.VideoReply;
-import org.usc.wechat.mp.sdk.vo.reply.detail.ThumbMediaDetail;
+import org.usc.wechat.mp.sdk.vo.reply.detail.VideoDetail;
 
 /**
  *
@@ -17,15 +16,11 @@ public class VideoReplyBuilder implements ReplyBuilder {
     public Reply buildReply(List<ReplyDetail> replyDetails) {
         ReplyDetail detail = replyDetails.get(0);
 
-        ThumbMediaDetail thumbMediaDetail = new ThumbMediaDetail();
-        thumbMediaDetail.setMediaId(detail.getMediaUrl());
-        thumbMediaDetail.setThumbMediaId(detail.getUrl());
+        VideoDetail videoDetail = new VideoDetail(detail.getMediaId());
+        videoDetail.setTitle(detail.getTitle());
+        videoDetail.setDescription(detail.getDescription());
 
-        VideoReply videoReply = new VideoReply();
-        videoReply.setMsgType(ReplyEnumFactory.VIDEO.getReplyType());
-        videoReply.setThumbMediaDetail(thumbMediaDetail);
-
-        return videoReply;
+        return new VideoReply(videoDetail);
     }
 
 }

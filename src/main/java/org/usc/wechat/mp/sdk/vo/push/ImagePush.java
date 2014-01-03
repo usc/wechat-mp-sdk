@@ -15,12 +15,23 @@ public class ImagePush extends Push {
     @XmlElement(name = "PicUrl")
     private String picUrl;
 
+    @XmlElement(name = "MediaId")
+    private String mediaId;
+
     public String getPicUrl() {
         return picUrl;
     }
 
     public void setPicUrl(String picUrl) {
         this.picUrl = picUrl;
+    }
+
+    public String getMediaId() {
+        return mediaId;
+    }
+
+    public void setMediaId(String mediaId) {
+        this.mediaId = mediaId;
     }
 
 }

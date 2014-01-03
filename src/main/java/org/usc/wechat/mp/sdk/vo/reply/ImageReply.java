@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.usc.wechat.mp.sdk.factory.ReplyEnumFactory;
 import org.usc.wechat.mp.sdk.vo.reply.detail.MediaDetail;
 
 /**
@@ -16,6 +17,17 @@ import org.usc.wechat.mp.sdk.vo.reply.detail.MediaDetail;
 public class ImageReply extends Reply {
     @XmlElement(name = "Image")
     private MediaDetail imageDetail;
+
+    {
+        super.setMsgType(ReplyEnumFactory.IMAGE.getReplyType());
+    }
+
+    protected ImageReply() {
+    }
+
+    public ImageReply(MediaDetail imageDetail) {
+        this.imageDetail = imageDetail;
+    }
 
     public MediaDetail getImageDetail() {
         return imageDetail;

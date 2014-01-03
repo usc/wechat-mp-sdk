@@ -25,7 +25,11 @@ public class NewsDetail {
     @XmlElement(name = "Url")
     private String url;
 
-    public NewsDetail() {
+    protected NewsDetail() {
+    }
+
+    public NewsDetail(String url) {
+        this.url = url;
     }
 
     public NewsDetail(String title, String description, String picUrl, String url) {

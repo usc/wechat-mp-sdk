@@ -16,6 +16,13 @@ public class MediaDetail {
     @XmlElement(name = "MediaId")
     private String mediaId;
 
+    protected MediaDetail() {
+    }
+
+    public MediaDetail(String mediaId) {
+        this.mediaId = mediaId;
+    }
+
     public String getMediaId() {
         return mediaId;
     }

@@ -6,18 +6,13 @@ package org.usc.wechat.mp.sdk.vo;
  */
 public class ReplyDetail {
     private String title;
-    private String mediaUrl;// in the presence MediaId when Media file Reply
-    private String url; // in the presence ThumbMediaId when Media file Reply
     private String description;
+    private String mediaUrl; // when news=PicUrl, music=MusicUrl
+    private String url;// when news=Url, music=HQMusicUrl
+    private String mediaId;
+    private String thumbMediaId;
 
     public ReplyDetail() {
-    }
-
-    public ReplyDetail(String title, String mediaUrl, String url, String description) {
-        this.title = title;
-        this.mediaUrl = mediaUrl;
-        this.url = url;
-        this.description = description;
     }
 
     public String getTitle() {
@@ -26,6 +21,14 @@ public class ReplyDetail {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getMediaUrl() {
@@ -44,11 +47,19 @@ public class ReplyDetail {
         this.url = url;
     }
 
-    public String getDescription() {
-        return description;
+    public String getMediaId() {
+        return mediaId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMediaId(String mediaId) {
+        this.mediaId = mediaId;
+    }
+
+    public String getThumbMediaId() {
+        return thumbMediaId;
+    }
+
+    public void setThumbMediaId(String thumbMediaId) {
+        this.thumbMediaId = thumbMediaId;
     }
 }

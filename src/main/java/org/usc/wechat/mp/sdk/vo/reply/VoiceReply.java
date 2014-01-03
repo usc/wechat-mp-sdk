@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.usc.wechat.mp.sdk.factory.ReplyEnumFactory;
 import org.usc.wechat.mp.sdk.vo.reply.detail.MediaDetail;
 
 /**
@@ -16,6 +17,17 @@ import org.usc.wechat.mp.sdk.vo.reply.detail.MediaDetail;
 public class VoiceReply extends Reply {
     @XmlElement(name = "Voice")
     private MediaDetail voiceDetail;
+
+    {
+        super.setMsgType(ReplyEnumFactory.VOICE.getReplyType());
+    }
+
+    protected VoiceReply() {
+    }
+
+    public VoiceReply(MediaDetail voiceDetail) {
+        this.voiceDetail = voiceDetail;
+    }
 
     public MediaDetail getVoiceDetail() {
         return voiceDetail;

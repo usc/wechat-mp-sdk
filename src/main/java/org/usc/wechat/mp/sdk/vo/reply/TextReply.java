@@ -5,6 +5,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.usc.wechat.mp.sdk.factory.ReplyEnumFactory;
+
 /**
  *
  * @author Shunli
@@ -14,6 +16,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class TextReply extends Reply {
     @XmlElement(name = "Content")
     private String content;
+
+    {
+        super.setMsgType(ReplyEnumFactory.TEXT.getReplyType());
+    }
+
+    protected TextReply() {
+    }
+
+    public TextReply(String content) {
+        this.content = content;
+    }
 
     public String getContent() {
         return content;

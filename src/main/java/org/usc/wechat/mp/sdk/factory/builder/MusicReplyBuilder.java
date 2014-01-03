@@ -2,7 +2,6 @@ package org.usc.wechat.mp.sdk.factory.builder;
 
 import java.util.List;
 
-import org.usc.wechat.mp.sdk.factory.ReplyEnumFactory;
 import org.usc.wechat.mp.sdk.vo.ReplyDetail;
 import org.usc.wechat.mp.sdk.vo.reply.MusicReply;
 import org.usc.wechat.mp.sdk.vo.reply.Reply;
@@ -17,13 +16,13 @@ public class MusicReplyBuilder implements ReplyBuilder {
     public Reply buildReply(List<ReplyDetail> replyDetails) {
         ReplyDetail detail = replyDetails.get(0);
 
-        MusicDetail musicDetail = new MusicDetail(detail.getTitle(), detail.getDescription(), detail.getMediaUrl(), detail.getUrl());
+        MusicDetail musicDetail = new MusicDetail(
+                detail.getTitle(),
+                detail.getDescription(),
+                detail.getMediaUrl(),
+                detail.getUrl(),
+                detail.getThumbMediaId());
 
-        MusicReply musicReply = new MusicReply();
-        musicReply.setMsgType(ReplyEnumFactory.MUSIC.getReplyType());
-        musicReply.setMusicDetail(musicDetail);
-
-        return musicReply;
+        return new MusicReply(musicDetail);
     }
-
 }

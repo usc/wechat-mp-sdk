@@ -5,7 +5,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.usc.wechat.mp.sdk.vo.reply.detail.ThumbMediaDetail;
+import org.usc.wechat.mp.sdk.factory.ReplyEnumFactory;
+import org.usc.wechat.mp.sdk.vo.reply.detail.VideoDetail;
 
 /**
  *
@@ -15,14 +16,25 @@ import org.usc.wechat.mp.sdk.vo.reply.detail.ThumbMediaDetail;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class VideoReply extends Reply {
     @XmlElement(name = "Video")
-    private ThumbMediaDetail thumbMediaDetail;
+    private VideoDetail videoDetail;
 
-    public ThumbMediaDetail getThumbMediaDetail() {
-        return thumbMediaDetail;
+    {
+        super.setMsgType(ReplyEnumFactory.VIDEO.getReplyType());
     }
 
-    public void setThumbMediaDetail(ThumbMediaDetail thumbMediaDetail) {
-        this.thumbMediaDetail = thumbMediaDetail;
+    protected VideoReply() {
+    }
+
+    public VideoReply(VideoDetail videoDetail) {
+        this.videoDetail = videoDetail;
+    }
+
+    public VideoDetail getVideoDetail() {
+        return videoDetail;
+    }
+
+    public void setVideoDetail(VideoDetail videoDetail) {
+        this.videoDetail = videoDetail;
     }
 
 }
