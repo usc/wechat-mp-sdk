@@ -18,6 +18,9 @@ public class VoicePush extends Push {
     @XmlElement(name = "Format")
     private String format;
 
+    @XmlElement(name = "Recognition")
+    private String recognition;
+
     public String getMediaId() {
         return mediaId;
     }
@@ -32,6 +35,14 @@ public class VoicePush extends Push {
 
     public void setFormat(String format) {
         this.format = format;
+    }
+
+    public String getRecognition() {
+        return recognition;
+    }
+
+    public void setRecognition(String recognition) {
+        this.recognition = recognition;
     }
 
 }
