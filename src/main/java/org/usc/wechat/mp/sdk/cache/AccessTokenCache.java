@@ -40,7 +40,7 @@ public class AccessTokenCache {
                 HttpResponse response = HttpClientBuilder.create().build().execute(httpget);
                 if (response == null) {
                     log.info("http no response when get access token for {}", license);
-                    return StringUtils.EMPTY;
+                    return null;
                 }
 
                 String json = EntityUtils.toString(response.getEntity());
@@ -49,12 +49,12 @@ public class AccessTokenCache {
                 AccessTokeJsonRtn rtn = JSONObject.parseObject(json, AccessTokeJsonRtn.class);
                 if (rtn == null) {
                     log.info("parse return json msg failed when get access token for {}, rtn = {}", license, json);
-                    return StringUtils.EMPTY;
+                    return null;
                 }
 
                 if (StringUtils.isNotEmpty(rtn.getErrCode()) && !StringUtils.equals(JSON_RTN_SUCCESS_CODE, rtn.getErrCode())) {
                     log.info("get access token for {} failed, rtn = {}", license, rtn);
-                    return StringUtils.EMPTY;
+                    return null;
                 }
 
                 // for safe, expiresSeconds - 60s
@@ -95,12 +95,26 @@ public class AccessTokenCache {
     }
 
     public static String getAccessToken(License license) {
+        String accessToken;
         try {
-            return cache.get(license);
+            accessToken = cache.get(license);
         } catch (Exception e) {
             log.error("get access token failed at " + license, e);
-            return StringUtils.EMPTY;
+            accessToken = StringUtils.EMPTY;
         }
-        // maybe throw exception when accessToken is empty,
+
+        if (StringUtils.isEmpty(accessToken)) {
+            // maybe throw exception when accessToken is empty,
+        }
+
+        return accessToken;
+    }
+
+    public static void refresh(License license) {
+        if (license != null) {
+            cache.invalidate(license);
+        } else {
+            cache.invalidateAll();
+        }
     }
 }
