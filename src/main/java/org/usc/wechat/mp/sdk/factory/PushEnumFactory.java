@@ -79,7 +79,7 @@ public enum PushEnumFactory {
             return new LocationPushParser();
         }
     },
-    VOICE { // not open
+    VOICE {
         @Override
         protected Class<? extends Push> getPushClass() {
             return VoicePush.class;
@@ -90,7 +90,7 @@ public enum PushEnumFactory {
             return new VoicePushParser();
         }
     },
-    VIDEO { // not open
+    VIDEO {
         @Override
         protected Class<? extends Push> getPushClass() {
             return VideoPush.class;
