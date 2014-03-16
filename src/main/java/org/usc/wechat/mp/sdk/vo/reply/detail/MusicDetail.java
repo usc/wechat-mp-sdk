@@ -23,7 +23,7 @@ public class MusicDetail {
     private String musicUrl;
 
     @XmlElement(name = "HQMusicUrl")
-    private String hQMusicUrl;
+    private String hqMusicUrl;
 
     @XmlElement(name = "ThumbMediaId")
     private String thumbMediaId;
@@ -35,11 +35,11 @@ public class MusicDetail {
         this.thumbMediaId = thumbMediaId;
     }
 
-    public MusicDetail(String title, String description, String musicUrl, String hQMusicUrl, String thumbMediaId) {
+    public MusicDetail(String title, String description, String musicUrl, String hqMusicUrl, String thumbMediaId) {
         this.title = title;
         this.description = description;
         this.musicUrl = musicUrl;
-        this.hQMusicUrl = hQMusicUrl;
+        this.hqMusicUrl = hqMusicUrl;
         this.thumbMediaId = thumbMediaId;
     }
 
@@ -67,12 +67,12 @@ public class MusicDetail {
         this.musicUrl = musicUrl;
     }
 
-    public String gethQMusicUrl() {
-        return hQMusicUrl;
+    public String getHqMusicUrl() {
+        return hqMusicUrl;
     }
 
-    public void sethQMusicUrl(String hQMusicUrl) {
-        this.hQMusicUrl = hQMusicUrl;
+    public void setHqMusicUrl(String hqMusicUrl) {
+        this.hqMusicUrl = hqMusicUrl;
     }
 
     public String getThumbMediaId() {
