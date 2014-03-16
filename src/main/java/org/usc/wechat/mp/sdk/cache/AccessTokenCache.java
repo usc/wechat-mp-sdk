@@ -11,8 +11,11 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.usc.wechat.mp.sdk.util.Constant;
+import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
 import org.usc.wechat.mp.sdk.vo.token.AccessTokeJsonRtn;
 import org.usc.wechat.mp.sdk.vo.token.DelayItem;
+import org.usc.wechat.mp.sdk.vo.token.GrantType;
 import org.usc.wechat.mp.sdk.vo.token.License;
 
 import com.alibaba.fastjson.JSONObject;
@@ -23,14 +26,13 @@ import com.google.common.primitives.Ints;
 
 public class AccessTokenCache {
     private final static Logger log = LoggerFactory.getLogger(AccessTokenCache.class);
-    private final static String JSON_RTN_SUCCESS_CODE = "0";
 
     private final static DelayQueue<DelayItem<License>> queue = new DelayQueue<DelayItem<License>>();
     private final static LoadingCache<License, String> cache = CacheBuilder.newBuilder().build(new CacheLoader<License, String>() {
         @Override
         public String load(License license) throws Exception {
-            URIBuilder uriBuilder = new URIBuilder("https://api.weixin.qq.com/cgi-bin/token");
-            uriBuilder.addParameter("grant_type", "client_credential");
+            URIBuilder uriBuilder = new URIBuilder(Constant.WECHAT_TOKEN_URL);
+            uriBuilder.addParameter("grant_type", GrantType.CLIENT_CREDENTIAL.getValue());
             uriBuilder.addParameter("appid", license.getAppId());
             uriBuilder.addParameter("secret", license.getAppSecret());
 
@@ -52,8 +54,10 @@ public class AccessTokenCache {
                     return null;
                 }
 
-                if (StringUtils.isNotEmpty(rtn.getErrCode()) && !StringUtils.equals(JSON_RTN_SUCCESS_CODE, rtn.getErrCode())) {
-                    log.info("get access token for {} failed, rtn = {}", license, rtn);
+                JsonRtnUtil.appendErrorHumanMsg(rtn);
+
+                if (StringUtils.isNotEmpty(rtn.getErrCode()) && !StringUtils.equals(Constant.WECHAT_JSON_RTN_SUCCESS_CODE, rtn.getErrCode())) {
+                    log.info("unsuccessfully get access token for {}, rtn = {}", license, rtn);
                     return null;
                 }
 
@@ -62,7 +66,7 @@ public class AccessTokenCache {
                 queue.put(new DelayItem<License>(license, TimeUnit.NANOSECONDS.convert(expiresSeconds, TimeUnit.SECONDS)));
 
                 String accessToken = rtn.getAccessToken();
-                log.info("get access token for {} success, rtn = {}", license, accessToken);
+                log.info("successfully get access token for {}, rtn = {}", license, rtn);
                 return accessToken;
             } finally {
                 httpget.releaseConnection();
@@ -99,7 +103,7 @@ public class AccessTokenCache {
         try {
             accessToken = cache.get(license);
         } catch (Exception e) {
-            log.error("get access token failed at " + license, e);
+            log.error("get access token failed for " + license, e);
             accessToken = StringUtils.EMPTY;
         }
 
@@ -110,7 +114,7 @@ public class AccessTokenCache {
         return accessToken;
     }
 
-    public static void refresh(License license) {
+    public static void invalidate(License license) {
         if (license != null) {
             cache.invalidate(license);
         } else {

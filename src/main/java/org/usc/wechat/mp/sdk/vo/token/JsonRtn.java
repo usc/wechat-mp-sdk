@@ -16,6 +16,8 @@ public class JsonRtn {
     @JSONField(name = "errmsg")
     private String errMsg;
 
+    private String errHumanMsg;
+
     public JsonRtn() {
     }
 
@@ -35,9 +37,17 @@ public class JsonRtn {
         this.errMsg = errMsg;
     }
 
+    public String getErrHumanMsg() {
+        return errHumanMsg;
+    }
+
+    public void setErrHumanMsg(String errHumanMsg) {
+        this.errHumanMsg = errHumanMsg;
+    }
+
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
 }
