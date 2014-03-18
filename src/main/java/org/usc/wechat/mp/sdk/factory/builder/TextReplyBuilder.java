@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.usc.wechat.mp.sdk.vo.ReplyDetail;
-import org.usc.wechat.mp.sdk.vo.reply.Reply;
-import org.usc.wechat.mp.sdk.vo.reply.TextReply;
+import org.usc.wechat.mp.sdk.vo.message.reply.Reply;
+import org.usc.wechat.mp.sdk.vo.message.reply.TextReply;
 
 /**
  *

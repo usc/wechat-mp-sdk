@@ -3,7 +3,7 @@ package org.usc.wechat.mp.sdk.util;
 import java.util.ResourceBundle;
 
 import org.apache.commons.lang3.StringUtils;
-import org.usc.wechat.mp.sdk.vo.token.JsonRtn;
+import org.usc.wechat.mp.sdk.vo.json.JsonRtn;
 
 /**
  *
@@ -19,14 +19,16 @@ public class JsonRtnUtil {
         }
     }
 
-    public static void appendErrorHumanMsg(JsonRtn jsonRtn) {
+    public static JsonRtn appendErrorHumanMsg(JsonRtn jsonRtn) {
         if (bundle == null || jsonRtn == null || StringUtils.isEmpty(jsonRtn.getErrCode())) {
-            return;
+            return null;
         }
 
         try {
             jsonRtn.setErrHumanMsg(bundle.getString(jsonRtn.getErrCode()));
+            return jsonRtn;
         } catch (Exception e) {
+            return null;
         }
     }
 }

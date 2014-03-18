@@ -5,9 +5,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.usc.wechat.mp.sdk.util.ReplyUtil;
 import org.usc.wechat.mp.sdk.vo.EventPushType;
+import org.usc.wechat.mp.sdk.vo.message.reply.Reply;
 import org.usc.wechat.mp.sdk.vo.push.EventPush;
 import org.usc.wechat.mp.sdk.vo.push.Push;
-import org.usc.wechat.mp.sdk.vo.reply.Reply;
 
 /**
  *

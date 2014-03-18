@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.usc.wechat.mp.sdk.util.Constant;
 import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
-import org.usc.wechat.mp.sdk.vo.token.AccessTokeJsonRtn;
+import org.usc.wechat.mp.sdk.vo.json.AccessTokenJsonRtn;
 import org.usc.wechat.mp.sdk.vo.token.DelayItem;
 import org.usc.wechat.mp.sdk.vo.token.GrantType;
 import org.usc.wechat.mp.sdk.vo.token.License;
@@ -39,7 +39,7 @@ public class AccessTokenCache {
             String json = Request.Get(uri).execute().returnContent().asString();
             log.info("get access token for {}, rtn = {}", license, json);
 
-            AccessTokeJsonRtn rtn = JSONObject.parseObject(json, AccessTokeJsonRtn.class);
+            AccessTokenJsonRtn rtn = JSONObject.parseObject(json, AccessTokenJsonRtn.class);
             if (rtn == null) {
                 log.info("parse return json msg failed when get access token for {}, rtn = {}", license, json);
                 return null;

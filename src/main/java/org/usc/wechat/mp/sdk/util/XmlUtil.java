@@ -7,8 +7,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.usc.wechat.mp.sdk.vo.message.reply.Reply;
 import org.usc.wechat.mp.sdk.vo.push.Push;
-import org.usc.wechat.mp.sdk.vo.reply.Reply;
 
 /**
  * xml <-> object

@@ -10,7 +10,7 @@ import org.usc.wechat.mp.sdk.factory.builder.TextReplyBuilder;
 import org.usc.wechat.mp.sdk.factory.builder.VideoReplyBuilder;
 import org.usc.wechat.mp.sdk.factory.builder.VoiceReplyBuilder;
 import org.usc.wechat.mp.sdk.vo.ReplyDetail;
-import org.usc.wechat.mp.sdk.vo.reply.Reply;
+import org.usc.wechat.mp.sdk.vo.message.reply.Reply;
 
 /**
  *

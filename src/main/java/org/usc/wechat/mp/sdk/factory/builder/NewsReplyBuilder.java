@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.usc.wechat.mp.sdk.vo.ReplyDetail;
-import org.usc.wechat.mp.sdk.vo.reply.NewsReply;
-import org.usc.wechat.mp.sdk.vo.reply.Reply;
-import org.usc.wechat.mp.sdk.vo.reply.detail.NewsDetail;
+import org.usc.wechat.mp.sdk.vo.message.reply.NewsReply;
+import org.usc.wechat.mp.sdk.vo.message.reply.Reply;
+import org.usc.wechat.mp.sdk.vo.message.reply.detail.NewsDetail;
 
 /**
  *

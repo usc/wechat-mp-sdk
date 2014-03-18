@@ -9,6 +9,7 @@ import org.usc.wechat.mp.sdk.factory.parser.TextPushParser;
 import org.usc.wechat.mp.sdk.factory.parser.VideoPushParser;
 import org.usc.wechat.mp.sdk.factory.parser.VoicePushParser;
 import org.usc.wechat.mp.sdk.util.XmlUtil;
+import org.usc.wechat.mp.sdk.vo.message.reply.Reply;
 import org.usc.wechat.mp.sdk.vo.push.EventPush;
 import org.usc.wechat.mp.sdk.vo.push.ImagePush;
 import org.usc.wechat.mp.sdk.vo.push.LinkPush;
@@ -17,7 +18,6 @@ import org.usc.wechat.mp.sdk.vo.push.Push;
 import org.usc.wechat.mp.sdk.vo.push.TextPush;
 import org.usc.wechat.mp.sdk.vo.push.VideoPush;
 import org.usc.wechat.mp.sdk.vo.push.VoicePush;
-import org.usc.wechat.mp.sdk.vo.reply.Reply;
 
 /**
  *

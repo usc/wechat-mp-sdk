@@ -3,9 +3,9 @@ package org.usc.wechat.mp.sdk.factory.builder;
 import java.util.List;
 
 import org.usc.wechat.mp.sdk.vo.ReplyDetail;
-import org.usc.wechat.mp.sdk.vo.reply.MusicReply;
-import org.usc.wechat.mp.sdk.vo.reply.Reply;
-import org.usc.wechat.mp.sdk.vo.reply.detail.MusicDetail;
+import org.usc.wechat.mp.sdk.vo.message.reply.MusicReply;
+import org.usc.wechat.mp.sdk.vo.message.reply.Reply;
+import org.usc.wechat.mp.sdk.vo.message.reply.detail.MusicDetail;
 
 /**
  *

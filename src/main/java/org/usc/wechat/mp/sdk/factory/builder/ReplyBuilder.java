@@ -3,7 +3,7 @@ package org.usc.wechat.mp.sdk.factory.builder;
 import java.util.List;
 
 import org.usc.wechat.mp.sdk.vo.ReplyDetail;
-import org.usc.wechat.mp.sdk.vo.reply.Reply;
+import org.usc.wechat.mp.sdk.vo.message.reply.Reply;
 
 /**
  *
