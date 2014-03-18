@@ -35,10 +35,8 @@ public class MessageUtil {
                     .build();
 
             String rtnJson = Request.Post(uri)
-                    .useExpectContinue()
                     .bodyString(body, ContentType.create("text/html", Consts.UTF_8))
-                    .execute()
-                    .returnContent().asString();
+                    .execute().returnContent().asString();
 
             JsonRtn jsonRtn = JsonRtnUtil.appendErrorHumanMsg(JSONObject.parseObject(rtnJson, JsonRtn.class));
             log.info("send custom message:\n url={},\n body={},\n rtn={},{}", uri, body, rtnJson, jsonRtn);

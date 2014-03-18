@@ -86,19 +86,21 @@ public class AccessTokenCache {
     }
 
     public static String getAccessToken(License license) {
-        String accessToken;
-        try {
-            accessToken = cache.get(license);
-        } catch (Exception e) {
-            log.error("get access token failed for " + license, e);
-            accessToken = StringUtils.EMPTY;
-        }
+//        String accessToken;
+//        try {
+//            accessToken = cache.get(license);
+//        } catch (Exception e) {
+//            log.error("get access token failed for " + license, e);
+//            accessToken = StringUtils.EMPTY;
+//        }
+//
+//        if (StringUtils.isEmpty(accessToken)) {
+//            // maybe throw exception when accessToken is empty,
+//        }
+//
+//        return accessToken;
 
-        if (StringUtils.isEmpty(accessToken)) {
-            // maybe throw exception when accessToken is empty,
-        }
-
-        return accessToken;
+        return "_WByUPWb8VxasiQedz9pxHuSrOoHVZx7xz0IEe3cj0OdNBWV3Q-GOxk26ZFGCfLJgHCIsrMcwKCz5pnE1EYechDbUtPKAQXmhvxP4KBuroRiJWQTiDsU6HNT3hz0uPrua1FGNLxdqeJk2bs7ynIkcA";
     }
 
     public static void invalidate(License license) {
