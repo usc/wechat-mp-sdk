@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 import org.apache.commons.lang3.StringUtils;
 import org.usc.wechat.mp.sdk.vo.json.JsonRtn;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  *
  * @author Shunli
@@ -19,7 +21,13 @@ public class JsonRtnUtil {
         }
     }
 
-    public static JsonRtn appendErrorHumanMsg(JsonRtn jsonRtn) {
+    public static <T extends JsonRtn> T parseJsonRtn(String jsonRtn, Class<T> jsonRtnClazz) {
+        T rtn = JSONObject.parseObject(jsonRtn, jsonRtnClazz);
+        appendErrorHumanMsg(rtn);
+        return rtn;
+    }
+
+    private static JsonRtn appendErrorHumanMsg(JsonRtn jsonRtn) {
         if (bundle == null || jsonRtn == null || StringUtils.isEmpty(jsonRtn.getErrCode())) {
             return null;
         }
@@ -31,4 +39,5 @@ public class JsonRtnUtil {
             return null;
         }
     }
+
 }

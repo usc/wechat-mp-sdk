@@ -38,7 +38,7 @@ public class MessageUtil {
                     .bodyString(body, ContentType.create("text/html", Consts.UTF_8))
                     .execute().returnContent().asString();
 
-            JsonRtn jsonRtn = JsonRtnUtil.appendErrorHumanMsg(JSONObject.parseObject(rtnJson, JsonRtn.class));
+            JsonRtn jsonRtn = JsonRtnUtil.parseJsonRtn(rtnJson, JsonRtn.class);
             log.info("send custom message:\n url={},\n body={},\n rtn={},{}", uri, body, rtnJson, jsonRtn);
             return jsonRtn;
         } catch (Exception e) {

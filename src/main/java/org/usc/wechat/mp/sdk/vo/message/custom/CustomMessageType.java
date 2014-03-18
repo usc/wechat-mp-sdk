@@ -1,11 +1,11 @@
-package org.usc.wechat.mp.sdk.factory;
+package org.usc.wechat.mp.sdk.vo.message.custom;
 
 
 /**
  *
  * @author Shunli
  */
-public enum CustomMessageEnumFactory {
+public enum CustomMessageType {
     TEXT("text"),
     IMAGE("image"),
     VIDEO("video"),
@@ -15,7 +15,7 @@ public enum CustomMessageEnumFactory {
 
     private String msgType;
 
-    private CustomMessageEnumFactory(String msgType) {
+    private CustomMessageType(String msgType) {
         this.msgType = msgType;
     }
 

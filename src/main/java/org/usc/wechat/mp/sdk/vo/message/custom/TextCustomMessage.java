@@ -1,6 +1,5 @@
 package org.usc.wechat.mp.sdk.vo.message.custom;
 
-import org.usc.wechat.mp.sdk.factory.CustomMessageEnumFactory;
 import org.usc.wechat.mp.sdk.vo.message.custom.detail.TextCustomMessageDetail;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -14,7 +13,7 @@ public class TextCustomMessage extends CustomMessage {
     private TextCustomMessageDetail textDetail;
 
     {
-        super.setMsgType(CustomMessageEnumFactory.TEXT.getMsgType());
+        super.setMsgType(CustomMessageType.TEXT.getMsgType());
     }
 
     public TextCustomMessage(TextCustomMessageDetail textDetail) {

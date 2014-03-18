@@ -1,4 +1,4 @@
-package org.usc.wechat.mp.sdk.vo;
+package org.usc.wechat.mp.sdk.vo.media;
 
 import java.io.File;
 

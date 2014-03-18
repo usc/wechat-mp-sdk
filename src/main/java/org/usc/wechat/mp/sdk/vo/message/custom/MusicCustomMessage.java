@@ -1,6 +1,5 @@
 package org.usc.wechat.mp.sdk.vo.message.custom;
 
-import org.usc.wechat.mp.sdk.factory.CustomMessageEnumFactory;
 import org.usc.wechat.mp.sdk.vo.message.custom.detail.MusicCustomMessageDetail;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -14,7 +13,7 @@ public class MusicCustomMessage extends CustomMessage {
     private MusicCustomMessageDetail musicDetail;
 
     {
-        super.setMsgType(CustomMessageEnumFactory.MUSIC.getMsgType());
+        super.setMsgType(CustomMessageType.MUSIC.getMsgType());
     }
 
     public MusicCustomMessage(MusicCustomMessageDetail musicDetail) {

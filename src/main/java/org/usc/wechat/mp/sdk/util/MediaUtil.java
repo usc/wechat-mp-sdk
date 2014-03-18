@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
@@ -14,15 +16,16 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.usc.wechat.mp.sdk.cache.AccessTokenCache;
-import org.usc.wechat.mp.sdk.vo.MediaFile;
-import org.usc.wechat.mp.sdk.vo.MediaType;
+import org.usc.wechat.mp.sdk.vo.json.JsonRtn;
 import org.usc.wechat.mp.sdk.vo.json.MediaJsonRtn;
+import org.usc.wechat.mp.sdk.vo.media.MediaFile;
+import org.usc.wechat.mp.sdk.vo.media.MediaType;
+import org.usc.wechat.mp.sdk.vo.media.MimeType;
 import org.usc.wechat.mp.sdk.vo.token.License;
-
-import com.alibaba.fastjson.JSONObject;
 
 /**
  *
@@ -50,11 +53,12 @@ public class MediaUtil {
                     .build();
 
             String rtnJson = Request.Post(uri)
+                    // .connectTimeout(100000)
+                    // .socketTimeout(100000)
                     .body(httpEntity)
                     .execute().returnContent().asString();
 
-            MediaJsonRtn jsonRtn = JSONObject.parseObject(rtnJson, MediaJsonRtn.class);
-            JsonRtnUtil.appendErrorHumanMsg(jsonRtn);
+            MediaJsonRtn jsonRtn = JsonRtnUtil.parseJsonRtn(rtnJson, MediaJsonRtn.class);
             log.info("upload media:\n url={},\n body={},\n rtn={},{}", uri, mediaFile, rtnJson, jsonRtn);
             return jsonRtn;
         } catch (Exception e) {
@@ -78,31 +82,30 @@ public class MediaUtil {
                     .build();
 
             HttpResponse response = Request.Get(uri).execute().returnResponse();
-
             HttpEntity entity = response.getEntity();
-
-            // String rtnStr = EntityUtils.toString(entity);
-            // System.out.println(rtnStr);
-            //
-            // JsonRtn rtn = JSONObject.parseObject(rtnStr, JsonRtn.class);
-            // System.out.println(rtn);
-
-            // Header[] allHeaders = response.getAllHeaders();
-            // for (Header header : allHeaders) {
-            // System.out.println(header.getName() + ":" + header.getValue());
-            // }
 
             String fileName = getFileNameFromContentDisposition(response);
             if (StringUtils.isEmpty(fileName)) {
                 fileName = getFileNameFromContentType(response);
             }
+            if (StringUtils.isEmpty(fileName)) {
+                String rtnString = EntityUtils.toString(entity);
+                JsonRtn rtn = JsonRtnUtil.parseJsonRtn(rtnString, JsonRtn.class);
+                log.info("missing media:\n url={},\n rtn={},{}", uri, rtnString, rtn);
+                // maybe throw a runtime exception
+                return null;
+            }
 
-            File file = new File(targetFolder, fileName);
-            OutputStream output = new FileOutputStream(file);
-            InputStream input = entity.getContent();
-            IOUtils.copy(input, output);
-            IOUtils.closeQuietly(output);
-            IOUtils.closeQuietly(input);
+            File directory = new File(targetFolder);
+            FileUtils.forceMkdir(directory);
+            File file = new File(directory, fileName);
+            if (!file.exists()) {
+                OutputStream output = new FileOutputStream(file);
+                InputStream input = entity.getContent();
+                IOUtils.copy(input, output);
+                IOUtils.closeQuietly(output);
+                IOUtils.closeQuietly(input);
+            }
 
             log.info("get media:\n url={},\n fileName={},{}", uri, fileName, file);
             return file;
@@ -124,28 +127,17 @@ public class MediaUtil {
     }
 
     private static String getFileNameFromContentType(HttpResponse response) {
-        String fileName = getRandomFileName();
-
         Header header = response.getFirstHeader("Content-Type");
         if (header == null) {
-            return fileName;
+            return null;
         }
 
         String contentType = header.getValue();
-        String ext = getExtensionFromContentType(contentType);
+        String ext = MimeType.getExtensionFromContentType(contentType);
         if (StringUtils.isEmpty(ext)) {
-            return fileName;
+            return null;
         }
 
-        return StringUtils.join(fileName, ".", ext);
-    }
-
-    private static String getExtensionFromContentType(String ContentType) {
-        // TODO-Shunli: todo later
-        return "";
-    }
-
-    private static String getRandomFileName() {
-        return System.currentTimeMillis() + "";
+        return StringUtils.join(System.currentTimeMillis() + "", FilenameUtils.EXTENSION_SEPARATOR_STR, ext);
     }
 }

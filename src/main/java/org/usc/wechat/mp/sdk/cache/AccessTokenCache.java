@@ -16,7 +16,6 @@ import org.usc.wechat.mp.sdk.vo.token.DelayItem;
 import org.usc.wechat.mp.sdk.vo.token.GrantType;
 import org.usc.wechat.mp.sdk.vo.token.License;
 
-import com.alibaba.fastjson.JSONObject;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -39,13 +38,11 @@ public class AccessTokenCache {
             String json = Request.Get(uri).execute().returnContent().asString();
             log.info("get access token for {}, rtn = {}", license, json);
 
-            AccessTokenJsonRtn rtn = JSONObject.parseObject(json, AccessTokenJsonRtn.class);
+            AccessTokenJsonRtn rtn = JsonRtnUtil.parseJsonRtn(json, AccessTokenJsonRtn.class);
             if (rtn == null) {
                 log.info("parse return json msg failed when get access token for {}, rtn = {}", license, json);
                 return null;
             }
-
-            JsonRtnUtil.appendErrorHumanMsg(rtn);
 
             if (StringUtils.isNotEmpty(rtn.getErrCode()) && !StringUtils.equals(Constant.WECHAT_JSON_RTN_SUCCESS_CODE, rtn.getErrCode())) {
                 log.info("unsuccessfully get access token for {}, rtn = {}", license, rtn);
@@ -86,21 +83,19 @@ public class AccessTokenCache {
     }
 
     public static String getAccessToken(License license) {
-//        String accessToken;
-//        try {
-//            accessToken = cache.get(license);
-//        } catch (Exception e) {
-//            log.error("get access token failed for " + license, e);
-//            accessToken = StringUtils.EMPTY;
-//        }
-//
-//        if (StringUtils.isEmpty(accessToken)) {
-//            // maybe throw exception when accessToken is empty,
-//        }
-//
-//        return accessToken;
+        String accessToken;
+        try {
+            accessToken = cache.get(license);
+        } catch (Exception e) {
+            log.error("get access token failed for " + license, e);
+            accessToken = StringUtils.EMPTY;
+        }
 
-        return "_WByUPWb8VxasiQedz9pxHuSrOoHVZx7xz0IEe3cj0OdNBWV3Q-GOxk26ZFGCfLJgHCIsrMcwKCz5pnE1EYechDbUtPKAQXmhvxP4KBuroRiJWQTiDsU6HNT3hz0uPrua1FGNLxdqeJk2bs7ynIkcA";
+        if (StringUtils.isEmpty(accessToken)) {
+            // maybe throw exception when accessToken is empty,
+        }
+
+        return accessToken;
     }
 
     public static void invalidate(License license) {
