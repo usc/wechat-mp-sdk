@@ -5,8 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import org.usc.wechat.mp.sdk.util.ToStringUtil;
 
 /**
  *
@@ -83,6 +82,6 @@ public abstract class Reply {
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.SIMPLE_STYLE);
+        return ToStringUtil.toString(this);
     }
 }
