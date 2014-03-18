@@ -1,5 +1,7 @@
 package org.usc.wechat.mp.sdk.vo.json;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 /**
@@ -44,6 +46,7 @@ public class MediaJsonRtn extends JsonRtn {
 
     public void setThumbMediaId(String thumbMediaId) {
         this.thumbMediaId = thumbMediaId;
+        this.mediaId = StringUtils.defaultIfEmpty(this.mediaId, thumbMediaId);
     }
 
     public long getCreatedAt() {
