@@ -2,8 +2,6 @@ package org.usc.wechat.mp.sdk.util.platform;
 
 import org.apache.commons.lang3.StringUtils;
 import org.usc.wechat.mp.sdk.vo.token.License;
-import org.usc.wechat.mp.sdk.vo.user.Group;
-import org.usc.wechat.mp.sdk.vo.user.GroupWarpper;
 import org.usc.wechat.mp.sdk.vo.user.UsersJsonRtn;
 
 /**
@@ -20,8 +18,5 @@ public class UserUtilTest {
 
         String openId = users != null ? users.getNextOpenId() : StringUtils.EMPTY;
         System.out.println(UserUtil.getUserInfo(license, openId));
-        System.out.println();
-
-        System.out.println(UserUtil.createGroup(license, new GroupWarpper(new Group("测试create group2"))));
     }
 }

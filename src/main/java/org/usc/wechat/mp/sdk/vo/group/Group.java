@@ -1,4 +1,4 @@
-package org.usc.wechat.mp.sdk.vo.user;
+package org.usc.wechat.mp.sdk.vo.group;
 
 import org.usc.wechat.mp.sdk.util.ToStringUtil;
 
