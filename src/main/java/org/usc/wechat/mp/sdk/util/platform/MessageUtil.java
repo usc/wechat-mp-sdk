@@ -1,4 +1,4 @@
-package org.usc.wechat.mp.sdk.util;
+package org.usc.wechat.mp.sdk.util.platform;
 
 import java.net.URI;
 
@@ -9,6 +9,8 @@ import org.apache.http.entity.ContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.usc.wechat.mp.sdk.cache.AccessTokenCache;
+import org.usc.wechat.mp.sdk.util.Constant;
+import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
 import org.usc.wechat.mp.sdk.vo.json.JsonRtn;
 import org.usc.wechat.mp.sdk.vo.message.custom.CustomMessage;
 import org.usc.wechat.mp.sdk.vo.token.License;

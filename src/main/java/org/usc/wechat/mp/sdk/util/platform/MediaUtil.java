@@ -1,4 +1,4 @@
-package org.usc.wechat.mp.sdk.util;
+package org.usc.wechat.mp.sdk.util.platform;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,6 +20,8 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.usc.wechat.mp.sdk.cache.AccessTokenCache;
+import org.usc.wechat.mp.sdk.util.Constant;
+import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
 import org.usc.wechat.mp.sdk.vo.json.JsonRtn;
 import org.usc.wechat.mp.sdk.vo.json.MediaJsonRtn;
 import org.usc.wechat.mp.sdk.vo.media.MediaFile;

@@ -1,8 +1,9 @@
-package org.usc.wechat.mp.sdk.util;
+package org.usc.wechat.mp.sdk.util.platform;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.usc.wechat.mp.sdk.util.platform.MessageUtil;
 import org.usc.wechat.mp.sdk.vo.message.custom.ArticleCustomMessage;
 import org.usc.wechat.mp.sdk.vo.message.custom.CustomMessage;
 import org.usc.wechat.mp.sdk.vo.message.custom.ImageCustomMessage;
