@@ -1,5 +1,7 @@
-package org.usc.wechat.mp.sdk.vo.json;
+package org.usc.wechat.mp.sdk.vo.token;
 
+
+import org.usc.wechat.mp.sdk.vo.JsonRtn;
 
 import com.alibaba.fastjson.annotation.JSONField;
 

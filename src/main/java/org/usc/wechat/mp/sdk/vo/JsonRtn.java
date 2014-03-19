@@ -1,4 +1,4 @@
-package org.usc.wechat.mp.sdk.vo.json;
+package org.usc.wechat.mp.sdk.vo;
 
 import org.usc.wechat.mp.sdk.util.ToStringUtil;
 

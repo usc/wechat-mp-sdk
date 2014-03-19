@@ -5,8 +5,8 @@ import java.io.File;
 import org.apache.commons.lang3.StringUtils;
 import org.usc.wechat.mp.sdk.util.Constant;
 import org.usc.wechat.mp.sdk.util.platform.MediaUtil;
-import org.usc.wechat.mp.sdk.vo.json.MediaJsonRtn;
 import org.usc.wechat.mp.sdk.vo.media.MediaFile;
+import org.usc.wechat.mp.sdk.vo.media.MediaJsonRtn;
 import org.usc.wechat.mp.sdk.vo.media.MediaType;
 import org.usc.wechat.mp.sdk.vo.token.License;
 

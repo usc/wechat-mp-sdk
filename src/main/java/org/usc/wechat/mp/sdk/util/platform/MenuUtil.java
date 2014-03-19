@@ -1,28 +1,21 @@
 package org.usc.wechat.mp.sdk.util.platform;
 
-import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Consts;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpResponseException;
-import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
-import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.usc.wechat.mp.sdk.cache.AccessTokenCache;
 import org.usc.wechat.mp.sdk.util.Constant;
+import org.usc.wechat.mp.sdk.util.HttpUtil;
 import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
-import org.usc.wechat.mp.sdk.vo.json.JsonRtn;
+import org.usc.wechat.mp.sdk.vo.JsonRtn;
 import org.usc.wechat.mp.sdk.vo.menu.Menu;
 import org.usc.wechat.mp.sdk.vo.menu.MenuInfo;
 import org.usc.wechat.mp.sdk.vo.menu.MultiMenuInfo;
@@ -73,24 +66,7 @@ public class MenuUtil {
                     .setParameter("access_token", accessToken)
                     .build();
 
-            ResponseHandler<String> handler = new ResponseHandler<String>() {
-                @Override
-                public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
-                    final StatusLine statusLine = response.getStatusLine();
-                    final HttpEntity entity = response.getEntity();
-                    if (statusLine.getStatusCode() >= 300) {
-                        throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
-                    }
-
-                    if (entity != null) {
-                        return EntityUtils.toString(entity, "UTF-8");
-                    }
-
-                    return StringUtils.EMPTY;
-                }
-            };
-
-            String json = Request.Get(uri).execute().handleResponse(handler);
+            String json = Request.Get(uri).execute().handleResponse(HttpUtil.UTF8_CONTENT_HANDLER);
             Menu menu = buildMenu(json);
             log.info("get menu:\n url={},\n rtn={},{}", uri, json, menu);
             return menu;

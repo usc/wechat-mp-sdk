@@ -3,7 +3,7 @@ package org.usc.wechat.mp.sdk.util;
 import java.util.ResourceBundle;
 
 import org.apache.commons.lang3.StringUtils;
-import org.usc.wechat.mp.sdk.vo.json.JsonRtn;
+import org.usc.wechat.mp.sdk.vo.JsonRtn;
 
 import com.alibaba.fastjson.JSONObject;
 

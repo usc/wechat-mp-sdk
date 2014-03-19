@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.usc.wechat.mp.sdk.util.Constant;
 import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
-import org.usc.wechat.mp.sdk.vo.json.AccessTokenJsonRtn;
+import org.usc.wechat.mp.sdk.vo.token.AccessTokenJsonRtn;
 import org.usc.wechat.mp.sdk.vo.token.DelayItem;
 import org.usc.wechat.mp.sdk.vo.token.GrantType;
 import org.usc.wechat.mp.sdk.vo.token.License;
