@@ -11,6 +11,10 @@ public interface Constant {
     String WECHAT_UPLOAD_MEDIA_URL = "http://file.api.weixin.qq.com/cgi-bin/media/upload";
     String WECHAT_GET_MEDIA_URL = "http://file.api.weixin.qq.com/cgi-bin/media/get";
 
+    String WECHAT_CREATE_MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/create";
+    String WECHAT_GET_MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/get";
+    String WECHAT_DELETE_MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/delete";
+
     String WECHAT_GLOBAL_MESSAGE_FILE_NAME = "wechate-global-message";
     String WECHAT_JSON_RTN_SUCCESS_CODE = "0";
 }
