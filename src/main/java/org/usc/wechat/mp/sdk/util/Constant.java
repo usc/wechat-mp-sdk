@@ -15,8 +15,11 @@ public interface Constant {
     String WECHAT_GET_MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/get";
     String WECHAT_DELETE_MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/delete";
 
-    String WECHAT_GET_GROUP_URL = "https://api.weixin.qq.com/cgi-bin/groups/get";
+    String WECHAT_GET_GROUPS_URL = "https://api.weixin.qq.com/cgi-bin/groups/get";
     String WECHAT_CREATE_GROUP_URL = "https://api.weixin.qq.com/cgi-bin/groups/create";
+    String WECHAT_GET_GROUP_BY_OPEN_ID_URL = "https://api.weixin.qq.com/cgi-bin/groups/getid";
+    String WECHAT_UPDATE_GROUP_URL = "https://api.weixin.qq.com/cgi-bin/groups/update";
+    String WECHAT_MOVE_MEMBER_GROUP_URL = "https://api.weixin.qq.com/cgi-bin/groups/members/update";
 
     String WECHAT_GET_USER_INFO_URL = "https://api.weixin.qq.com/cgi-bin/user/info";
     String WECHAT_GET_USERS_URL = "https://api.weixin.qq.com/cgi-bin/user/get";
