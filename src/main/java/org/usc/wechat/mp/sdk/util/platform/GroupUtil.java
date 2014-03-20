@@ -14,6 +14,7 @@ import org.usc.wechat.mp.sdk.util.Constant;
 import org.usc.wechat.mp.sdk.util.HttpUtil;
 import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
 import org.usc.wechat.mp.sdk.vo.JsonRtn;
+import org.usc.wechat.mp.sdk.vo.group.Group;
 import org.usc.wechat.mp.sdk.vo.group.GroupIdJsonRtn;
 import org.usc.wechat.mp.sdk.vo.group.GroupJsonRtn;
 import org.usc.wechat.mp.sdk.vo.group.GroupWarpper;
@@ -75,12 +76,12 @@ public class GroupUtil {
         }
     }
 
-    public static GroupJsonRtn createGroup(License license, GroupWarpper groupWarpper) {
-        if (groupWarpper == null || groupWarpper.getGroup() == null) {
+    public static GroupJsonRtn createGroup(License license, String groupName) {
+        if (StringUtils.isEmpty(groupName)) {
             return null;
         }
 
-        String body = JSONObject.toJSONString(groupWarpper);
+        String body = JSONObject.toJSONString(new GroupWarpper(new Group(groupName)));
         String accessToken = AccessTokenCache.getAccessToken(license);
         try {
             URI uri = new URIBuilder(Constant.WECHAT_CREATE_GROUP_URL)
@@ -92,7 +93,7 @@ public class GroupUtil {
                     .execute().handleResponse(HttpUtil.UTF8_CONTENT_HANDLER);
 
             GroupJsonRtn jsonRtn = JsonRtnUtil.parseJsonRtn(json, GroupJsonRtn.class);
-            log.info("create group:\n url={},\n body={},\n rtn={},{}", uri, groupWarpper, json, jsonRtn);
+            log.info("create group:\n url={},\n body={},\n rtn={},{}", uri, body, json, jsonRtn);
             return jsonRtn;
         } catch (Exception e) {
             String msg = "create group failed:\n " +
@@ -103,12 +104,12 @@ public class GroupUtil {
     }
 
     // TODO-Shunli: now update group always failed, tip system error, check later
-    public static JsonRtn updateGroup(License license, GroupWarpper groupWarpper) {
-        if (groupWarpper == null || groupWarpper.getGroup() == null) {
+    public static JsonRtn updateGroup(License license, Group group) {
+        if (group == null) {
             return null;
         }
 
-        String body = JSONObject.toJSONString(groupWarpper);
+        String body = JSONObject.toJSONString(new GroupWarpper(group));
         String accessToken = AccessTokenCache.getAccessToken(license);
         try {
             URI uri = new URIBuilder(Constant.WECHAT_UPDATE_GROUP_URL)
@@ -130,12 +131,12 @@ public class GroupUtil {
         }
     }
 
-    public static JsonRtn moveMember(License license, MemberMovement memberMovement) {
-        if (memberMovement == null) {
+    public static JsonRtn moveMember(License license, String openId, int toGroupId) {
+        if (StringUtils.isEmpty(openId)) {
             return null;
         }
 
-        String body = JSONObject.toJSONString(memberMovement);
+        String body = JSONObject.toJSONString(new MemberMovement(openId, toGroupId));
         String accessToken = AccessTokenCache.getAccessToken(license);
         try {
             URI uri = new URIBuilder(Constant.WECHAT_MOVE_MEMBER_GROUP_URL)
