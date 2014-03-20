@@ -24,6 +24,9 @@ public interface Constant {
     String WECHAT_GET_USER_INFO_URL = "https://api.weixin.qq.com/cgi-bin/user/info";
     String WECHAT_GET_USERS_URL = "https://api.weixin.qq.com/cgi-bin/user/get";
 
+    String WECHAT_CREATE_QRCODE_URL = "https://api.weixin.qq.com/cgi-bin/qrcode/create";
+    String WECHAT_SHOW_QRCODE_URL = "https://mp.weixin.qq.com/cgi-bin/showqrcode";
+
     String WECHAT_GLOBAL_MESSAGE_FILE_NAME = "wechate-global-message";
     String WECHAT_JSON_RTN_SUCCESS_CODE = "0";
 }
