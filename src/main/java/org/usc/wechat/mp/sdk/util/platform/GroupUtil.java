@@ -30,7 +30,7 @@ import com.alibaba.fastjson.JSONObject;
  * @author Shunli
  */
 public class GroupUtil {
-    private final static Logger log = LoggerFactory.getLogger(GroupUtilTest.class);
+    private final static Logger log = LoggerFactory.getLogger(GroupUtil.class);
 
     public static GroupsJsonRtn getGroups(License license) {
         String accessToken = AccessTokenCache.getAccessToken(license);
