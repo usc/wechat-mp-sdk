@@ -1,14 +1,16 @@
 package org.usc.wechat.mp.sdk.util.platform;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -72,8 +74,8 @@ public class MediaUtil {
         }
     }
 
-    public static File getMedia(License license, String mediaId, String targetFolder) {
-        if (StringUtils.isEmpty(mediaId) || StringUtils.isEmpty(targetFolder)) {
+    public static File getMedia(License license, String mediaId, String path) {
+        if (StringUtils.isEmpty(mediaId) || StringUtils.isEmpty(path)) {
             return null;
         }
 
@@ -85,33 +87,7 @@ public class MediaUtil {
                     .build();
 
             HttpResponse response = Request.Get(uri).execute().returnResponse();
-            HttpEntity entity = response.getEntity();
-
-            String fileName = getFileNameFromContentDisposition(response);
-            if (StringUtils.isEmpty(fileName)) {
-                fileName = getFileNameFromContentType(response);
-            }
-            if (StringUtils.isEmpty(fileName)) {
-                String rtnString = EntityUtils.toString(entity);
-                JsonRtn rtn = JsonRtnUtil.parseJsonRtn(rtnString, JsonRtn.class);
-                log.info("missing media:\n url={},\n rtn={},{}", uri, rtnString, rtn);
-                // maybe throw a runtime exception
-                return null;
-            }
-
-            File directory = new File(targetFolder);
-            FileUtils.forceMkdir(directory);
-            File file = new File(directory, fileName);
-            if (!file.exists()) {
-                OutputStream output = new FileOutputStream(file);
-                InputStream input = entity.getContent();
-                IOUtils.copy(input, output);
-                IOUtils.closeQuietly(output);
-                IOUtils.closeQuietly(input);
-            }
-
-            log.info("get media:\n url={},\n fileName={},{}", uri, fileName, file);
-            return file;
+            return downloadFile(response, mediaId, path, uri);
         } catch (Exception e) {
             String msg = "get media failed:\n " +
                     "url=" + Constant.WECHAT_GET_MEDIA_URL + "?access_token=" + accessToken + "&media_id=" + mediaId;
@@ -120,8 +96,36 @@ public class MediaUtil {
         }
     }
 
+    private static File downloadFile(HttpResponse response, String mediaId, String path, URI uri) throws IOException, FileNotFoundException {
+        HttpEntity entity = response.getEntity();
+        if (entity == null) {
+            return null;
+        }
+
+        String fileName = StringUtils.defaultIfEmpty(getFileNameFromContentDisposition(response), getFileNameFromContentType(response, mediaId));
+        if (StringUtils.isEmpty(fileName)) {
+            String rtnString = EntityUtils.toString(entity);
+            JsonRtn rtn = JsonRtnUtil.parseJsonRtn(rtnString, JsonRtn.class);
+            log.info("missing media:\n url={},\n rtn={},{}", uri, rtnString, rtn);
+            // maybe throw a runtime exception
+            return null;
+        }
+
+        File directory = new File(path);
+        FileUtils.forceMkdir(directory);
+        File file = new File(directory, fileName);
+        if (!file.exists()) {
+            OutputStream output = new FileOutputStream(file);
+            IOUtils.copy(entity.getContent(), output);
+            IOUtils.closeQuietly(output);
+        }
+
+        log.info("get media:\n url={},\n fileName={},{}", uri, fileName, file);
+        return file;
+    }
+
     private static String getFileNameFromContentDisposition(HttpResponse response) {
-        Header header = response.getFirstHeader("Content-disposition");
+        Header header = ObjectUtils.firstNonNull(response.getFirstHeader("Content-disposition"), response.getFirstHeader("Content-Disposition"));
         if (header == null) {
             return null;
         }
@@ -129,7 +133,7 @@ public class MediaUtil {
         return StringUtils.substringBetween(header.getValue(), "filename=\"", "\"");
     }
 
-    private static String getFileNameFromContentType(HttpResponse response) {
+    private static String getFileNameFromContentType(HttpResponse response, String mediaId) {
         Header header = response.getFirstHeader("Content-Type");
         if (header == null) {
             return null;
@@ -141,6 +145,6 @@ public class MediaUtil {
             return null;
         }
 
-        return StringUtils.join(System.currentTimeMillis() + "", FilenameUtils.EXTENSION_SEPARATOR_STR, ext);
+        return StringUtils.join(mediaId, FilenameUtils.EXTENSION_SEPARATOR_STR, ext);
     }
 }

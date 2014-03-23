@@ -20,11 +20,11 @@ public class HttpUtil {
         @Override
         public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {
             final StatusLine statusLine = response.getStatusLine();
-            final HttpEntity entity = response.getEntity();
             if (statusLine.getStatusCode() >= 300) {
                 throw new HttpResponseException(statusLine.getStatusCode(), statusLine.getReasonPhrase());
             }
 
+            final HttpEntity entity = response.getEntity();
             if (entity != null) {
                 return EntityUtils.toString(entity, "UTF-8");
             }
