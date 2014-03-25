@@ -16,6 +16,9 @@ import org.apache.http.util.EntityUtils;
  * @author Shunli
  */
 public class HttpUtil {
+    /**
+     * handle response's entity to utf8 text
+     */
     public static final ResponseHandler<String> UTF8_CONTENT_HANDLER = new ResponseHandler<String>() {
         @Override
         public String handleResponse(HttpResponse response) throws ClientProtocolException, IOException {

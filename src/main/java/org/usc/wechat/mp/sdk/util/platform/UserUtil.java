@@ -8,8 +8,7 @@ import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.usc.wechat.mp.sdk.cache.AccessTokenCache;
-import org.usc.wechat.mp.sdk.util.Constant;
+import org.usc.wechat.mp.sdk.util.WechatUrl;
 import org.usc.wechat.mp.sdk.util.HttpUtil;
 import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
 import org.usc.wechat.mp.sdk.vo.token.License;
@@ -32,10 +31,10 @@ public class UserUtil {
             return null;
         }
 
-        String accessToken = AccessTokenCache.getAccessToken(license);
+        String accessToken = AccessTokenUtil.getAccessToken(license);
         String lang = local != null ? local.toString() : StringUtils.EMPTY;
         try {
-            URI uri = new URIBuilder(Constant.WECHAT_GET_USER_INFO_URL)
+            URI uri = new URIBuilder(WechatUrl.WECHAT_GET_USER_INFO_URL)
                     .setParameter("access_token", accessToken)
                     .setParameter("openid", openId)
                     .setParameter("lang", lang)
@@ -46,7 +45,7 @@ public class UserUtil {
             log.info("get user info:\n url={},\n rtn={},{}", uri, json, jsonRtn);
             return jsonRtn;
         } catch (Exception e) {
-            String msg = "get user info failed: url=" + Constant.WECHAT_GET_USER_INFO_URL + "?access_token=" + accessToken + "&lang=" + lang;
+            String msg = "get user info failed: url=" + WechatUrl.WECHAT_GET_USER_INFO_URL + "?access_token=" + accessToken + "&lang=" + lang;
             log.error(msg, e);
             return null;
         }
@@ -57,9 +56,9 @@ public class UserUtil {
     }
 
     public static UsersJsonRtn getUsers(License license, String nextOpenId) {
-        String accessToken = AccessTokenCache.getAccessToken(license);
+        String accessToken = AccessTokenUtil.getAccessToken(license);
         try {
-            URI uri = new URIBuilder(Constant.WECHAT_GET_USERS_URL)
+            URI uri = new URIBuilder(WechatUrl.WECHAT_GET_USERS_URL)
                     .setParameter("access_token", accessToken)
                     .setParameter("next_openid", StringUtils.defaultString(nextOpenId))
                     .build();
@@ -69,7 +68,7 @@ public class UserUtil {
             log.info("get user info:\n url={},\n rtn={},{}", uri, json, jsonRtn);
             return jsonRtn;
         } catch (Exception e) {
-            String msg = "get user info failed: url=" + Constant.WECHAT_GET_USERS_URL + "?access_token=" + accessToken + "&next_openid=" + StringUtils.defaultString(nextOpenId);
+            String msg = "get user info failed: url=" + WechatUrl.WECHAT_GET_USERS_URL + "?access_token=" + accessToken + "&next_openid=" + StringUtils.defaultString(nextOpenId);
             log.error(msg, e);
             return null;
         }

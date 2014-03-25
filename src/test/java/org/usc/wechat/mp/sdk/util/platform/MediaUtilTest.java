@@ -2,9 +2,7 @@ package org.usc.wechat.mp.sdk.util.platform;
 
 import java.io.File;
 
-import org.apache.commons.lang3.StringUtils;
-import org.usc.wechat.mp.sdk.util.Constant;
-import org.usc.wechat.mp.sdk.util.platform.MediaUtil;
+import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
 import org.usc.wechat.mp.sdk.vo.media.MediaFile;
 import org.usc.wechat.mp.sdk.vo.media.MediaJsonRtn;
 import org.usc.wechat.mp.sdk.vo.media.MediaType;
@@ -38,7 +36,7 @@ public class MediaUtilTest {
             return;
         }
 
-        if (StringUtils.isNotEmpty(mediaJsonRtn.getErrCode()) && !StringUtils.equals(Constant.WECHAT_JSON_RTN_SUCCESS_CODE, mediaJsonRtn.getErrCode())) {
+        if (!JsonRtnUtil.isSuccess(mediaJsonRtn)) {
             System.out.println("failed");
             return;
         }

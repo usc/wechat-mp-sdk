@@ -1,4 +1,4 @@
-package org.usc.wechat.mp.sdk.cache;
+package org.usc.wechat.mp.sdk.util.platform;
 
 import java.net.URI;
 import java.util.concurrent.DelayQueue;
@@ -9,7 +9,7 @@ import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.usc.wechat.mp.sdk.util.Constant;
+import org.usc.wechat.mp.sdk.util.WechatUrl;
 import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
 import org.usc.wechat.mp.sdk.vo.token.AccessTokenJsonRtn;
 import org.usc.wechat.mp.sdk.vo.token.DelayItem;
@@ -21,14 +21,18 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.primitives.Ints;
 
-public class AccessTokenCache {
-    private final static Logger log = LoggerFactory.getLogger(AccessTokenCache.class);
+/**
+ *
+ * @author Shunli
+ */
+public class AccessTokenUtil {
+    private final static Logger log = LoggerFactory.getLogger(AccessTokenUtil.class);
 
     private final static DelayQueue<DelayItem<License>> queue = new DelayQueue<DelayItem<License>>();
     private final static LoadingCache<License, String> cache = CacheBuilder.newBuilder().build(new CacheLoader<License, String>() {
         @Override
         public String load(License license) throws Exception {
-            URI uri = new URIBuilder(Constant.WECHAT_TOKEN_URL)
+            URI uri = new URIBuilder(WechatUrl.WECHAT_TOKEN_URL)
                     .setParameter("grant_type", GrantType.CLIENT_CREDENTIAL.getValue())
                     .setParameter("appid", license.getAppId())
                     .setParameter("secret", license.getAppSecret())
@@ -44,7 +48,7 @@ public class AccessTokenCache {
                 return null;
             }
 
-            if (StringUtils.isNotEmpty(rtn.getErrCode()) && !StringUtils.equals(Constant.WECHAT_JSON_RTN_SUCCESS_CODE, rtn.getErrCode())) {
+            if (!JsonRtnUtil.isSuccess(rtn)) {
                 log.info("unsuccessfully get access token for {}, rtn = {}", license, rtn);
                 return null;
             }

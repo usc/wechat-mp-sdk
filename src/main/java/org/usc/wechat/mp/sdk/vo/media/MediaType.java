@@ -8,11 +8,6 @@ import java.util.List;
  * @author Shunli
  */
 public enum MediaType {
-    // 图片（image）: 128K，支持JPG格式
-    // 语音（voice）：256K，播放长度不超过60s，支持AMR\MP3格式
-    // 视频（video）：1MB，支持MP4格式
-    // 缩略图（thumb）：64KB，支持JPG格式
-
     IMAGE("image") {
         @Override
         public MediaLimit getMediaLimit() {

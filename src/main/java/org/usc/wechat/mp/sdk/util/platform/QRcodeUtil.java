@@ -9,8 +9,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.usc.wechat.mp.sdk.cache.AccessTokenCache;
-import org.usc.wechat.mp.sdk.util.Constant;
+import org.usc.wechat.mp.sdk.util.WechatUrl;
 import org.usc.wechat.mp.sdk.util.HttpUtil;
 import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
 import org.usc.wechat.mp.sdk.vo.qrcode.QRcodeActionInfo;
@@ -50,9 +49,9 @@ public class QRcodeUtil {
 
     private static QRcodeTicketJsonRtn createQRcode(License license, QRcodeTicket ticket) {
         String body = JSONObject.toJSONString(ticket);
-        String accessToken = AccessTokenCache.getAccessToken(license);
+        String accessToken = AccessTokenUtil.getAccessToken(license);
         try {
-            URI uri = new URIBuilder(Constant.WECHAT_CREATE_QRCODE_URL)
+            URI uri = new URIBuilder(WechatUrl.WECHAT_CREATE_QRCODE_URL)
                     .setParameter("access_token", accessToken)
                     .build();
 
@@ -65,7 +64,7 @@ public class QRcodeUtil {
             return jsonRtn;
         } catch (Exception e) {
             String msg = "create qrcode failed:\n " +
-                    "url=" + Constant.WECHAT_CREATE_QRCODE_URL + "?access_token=" + accessToken + ",\n body=" + body;
+                    "url=" + WechatUrl.WECHAT_CREATE_QRCODE_URL + "?access_token=" + accessToken + ",\n body=" + body;
             log.error(msg, e);
             return null;
         }
@@ -77,14 +76,14 @@ public class QRcodeUtil {
         }
 
         try {
-            URI uri = new URIBuilder(Constant.WECHAT_SHOW_QRCODE_URL)
+            URI uri = new URIBuilder(WechatUrl.WECHAT_SHOW_QRCODE_URL)
                     .setParameter("ticket", ticket)
                     .build();
 
             log.info("build qrcode img url: url={}", uri);
             return uri.toString();
         } catch (Exception e) {
-            String msg = "build qrcode img url failed: url=" + Constant.WECHAT_SHOW_QRCODE_URL + "?ticket=" + ticket;
+            String msg = "build qrcode img url failed: url=" + WechatUrl.WECHAT_SHOW_QRCODE_URL + "?ticket=" + ticket;
             log.error(msg, e);
             return StringUtils.EMPTY;
         }

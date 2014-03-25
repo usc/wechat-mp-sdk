@@ -4,7 +4,7 @@ package org.usc.wechat.mp.sdk.util;
  *
  * @author Shunli
  */
-public interface Constant {
+public interface WechatUrl {
     String WECHAT_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token";
     String WECHAT_SEND_CUSTOM_MESSAGE_URL = "https://api.weixin.qq.com/cgi-bin/message/custom/send";
 
@@ -26,7 +26,4 @@ public interface Constant {
 
     String WECHAT_CREATE_QRCODE_URL = "https://api.weixin.qq.com/cgi-bin/qrcode/create";
     String WECHAT_SHOW_QRCODE_URL = "https://mp.weixin.qq.com/cgi-bin/showqrcode";
-
-    String WECHAT_GLOBAL_MESSAGE_FILE_NAME = "wechate-global-message";
-    String WECHAT_JSON_RTN_SUCCESS_CODE = "0";
 }

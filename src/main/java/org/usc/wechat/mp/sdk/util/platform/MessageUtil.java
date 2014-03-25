@@ -8,8 +8,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.usc.wechat.mp.sdk.cache.AccessTokenCache;
-import org.usc.wechat.mp.sdk.util.Constant;
+import org.usc.wechat.mp.sdk.util.WechatUrl;
 import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
 import org.usc.wechat.mp.sdk.vo.JsonRtn;
 import org.usc.wechat.mp.sdk.vo.message.custom.CustomMessage;
@@ -30,9 +29,9 @@ public class MessageUtil {
         }
 
         String body = JSONObject.toJSONString(customMessage);
-        String accessToken = AccessTokenCache.getAccessToken(license);
+        String accessToken = AccessTokenUtil.getAccessToken(license);
         try {
-            URI uri = new URIBuilder(Constant.WECHAT_SEND_CUSTOM_MESSAGE_URL)
+            URI uri = new URIBuilder(WechatUrl.WECHAT_SEND_CUSTOM_MESSAGE_URL)
                     .setParameter("access_token", accessToken)
                     .build();
 
@@ -45,7 +44,7 @@ public class MessageUtil {
             return jsonRtn;
         } catch (Exception e) {
             String msg = "send custom message failed:\n " +
-                    "url=" + Constant.WECHAT_SEND_CUSTOM_MESSAGE_URL + "?access_token=" + accessToken + ",\n body=" + body;
+                    "url=" + WechatUrl.WECHAT_SEND_CUSTOM_MESSAGE_URL + "?access_token=" + accessToken + ",\n body=" + body;
             log.error(msg, e);
             return null;
         }

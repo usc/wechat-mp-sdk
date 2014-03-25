@@ -21,8 +21,7 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.usc.wechat.mp.sdk.cache.AccessTokenCache;
-import org.usc.wechat.mp.sdk.util.Constant;
+import org.usc.wechat.mp.sdk.util.WechatUrl;
 import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
 import org.usc.wechat.mp.sdk.vo.JsonRtn;
 import org.usc.wechat.mp.sdk.vo.media.MediaFile;
@@ -45,10 +44,10 @@ public class MediaUtil {
         }
         // maybe todo more mediaFile legality check
 
-        String accessToken = AccessTokenCache.getAccessToken(license);
+        String accessToken = AccessTokenUtil.getAccessToken(license);
         try {
             MediaType mediaType = mediaFile.getMediaType();
-            URI uri = new URIBuilder(Constant.WECHAT_UPLOAD_MEDIA_URL)
+            URI uri = new URIBuilder(WechatUrl.WECHAT_UPLOAD_MEDIA_URL)
                     .setParameter("access_token", accessToken)
                     .setParameter("type", mediaType.getName())
                     .build();
@@ -68,7 +67,7 @@ public class MediaUtil {
             return jsonRtn;
         } catch (Exception e) {
             String msg = "upload media failed:\n " +
-                    "url=" + Constant.WECHAT_UPLOAD_MEDIA_URL + "?access_token=" + accessToken + ",\n body=" + mediaFile;
+                    "url=" + WechatUrl.WECHAT_UPLOAD_MEDIA_URL + "?access_token=" + accessToken + ",\n body=" + mediaFile;
             log.error(msg, e);
             return null;
         }
@@ -79,9 +78,9 @@ public class MediaUtil {
             return null;
         }
 
-        String accessToken = AccessTokenCache.getAccessToken(license);
+        String accessToken = AccessTokenUtil.getAccessToken(license);
         try {
-            URI uri = new URIBuilder(Constant.WECHAT_GET_MEDIA_URL)
+            URI uri = new URIBuilder(WechatUrl.WECHAT_GET_MEDIA_URL)
                     .setParameter("access_token", accessToken)
                     .setParameter("media_id", mediaId)
                     .build();
@@ -90,7 +89,7 @@ public class MediaUtil {
             return downloadFile(response, mediaId, path, uri);
         } catch (Exception e) {
             String msg = "get media failed:\n " +
-                    "url=" + Constant.WECHAT_GET_MEDIA_URL + "?access_token=" + accessToken + "&media_id=" + mediaId;
+                    "url=" + WechatUrl.WECHAT_GET_MEDIA_URL + "?access_token=" + accessToken + "&media_id=" + mediaId;
             log.error(msg, e);
             return null;
         }

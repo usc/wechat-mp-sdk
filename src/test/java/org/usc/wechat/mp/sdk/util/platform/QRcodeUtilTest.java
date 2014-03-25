@@ -1,7 +1,6 @@
 package org.usc.wechat.mp.sdk.util.platform;
 
-import org.apache.commons.lang3.StringUtils;
-import org.usc.wechat.mp.sdk.util.Constant;
+import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
 import org.usc.wechat.mp.sdk.vo.qrcode.QRcodeTicketJsonRtn;
 import org.usc.wechat.mp.sdk.vo.token.License;
 
@@ -26,7 +25,7 @@ public class QRcodeUtilTest {
             return;
         }
 
-        if (StringUtils.isNotEmpty(jsonRtn.getErrCode()) && !StringUtils.equals(Constant.WECHAT_JSON_RTN_SUCCESS_CODE, jsonRtn.getErrCode())) {
+        if (!JsonRtnUtil.isSuccess(jsonRtn)) {
             System.out.println("create qrcode failed");
             return;
         }
