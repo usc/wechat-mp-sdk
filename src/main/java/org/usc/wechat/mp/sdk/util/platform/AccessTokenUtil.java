@@ -32,7 +32,7 @@ public class AccessTokenUtil {
     private final static LoadingCache<License, String> cache = CacheBuilder.newBuilder().build(new CacheLoader<License, String>() {
         @Override
         public String load(License license) throws Exception {
-            URI uri = new URIBuilder(WechatUrl.WECHAT_TOKEN_URL)
+            URI uri = new URIBuilder(WechatUrl.TOKEN_URL)
                     .setParameter("grant_type", GrantType.CLIENT_CREDENTIAL.getValue())
                     .setParameter("appid", license.getAppId())
                     .setParameter("secret", license.getAppSecret())

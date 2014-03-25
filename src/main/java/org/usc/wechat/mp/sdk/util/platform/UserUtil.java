@@ -34,7 +34,7 @@ public class UserUtil {
         String accessToken = AccessTokenUtil.getAccessToken(license);
         String lang = local != null ? local.toString() : StringUtils.EMPTY;
         try {
-            URI uri = new URIBuilder(WechatUrl.WECHAT_GET_USER_INFO_URL)
+            URI uri = new URIBuilder(WechatUrl.GET_USER_INFO_URL)
                     .setParameter("access_token", accessToken)
                     .setParameter("openid", openId)
                     .setParameter("lang", lang)
@@ -45,7 +45,7 @@ public class UserUtil {
             log.info("get user info:\n url={},\n rtn={},{}", uri, json, jsonRtn);
             return jsonRtn;
         } catch (Exception e) {
-            String msg = "get user info failed: url=" + WechatUrl.WECHAT_GET_USER_INFO_URL + "?access_token=" + accessToken + "&lang=" + lang;
+            String msg = "get user info failed: url=" + WechatUrl.GET_USER_INFO_URL + "?access_token=" + accessToken + "&lang=" + lang;
             log.error(msg, e);
             return null;
         }
@@ -58,7 +58,7 @@ public class UserUtil {
     public static UsersJsonRtn getUsers(License license, String nextOpenId) {
         String accessToken = AccessTokenUtil.getAccessToken(license);
         try {
-            URI uri = new URIBuilder(WechatUrl.WECHAT_GET_USERS_URL)
+            URI uri = new URIBuilder(WechatUrl.GET_USERS_URL)
                     .setParameter("access_token", accessToken)
                     .setParameter("next_openid", StringUtils.defaultString(nextOpenId))
                     .build();
@@ -68,7 +68,7 @@ public class UserUtil {
             log.info("get user info:\n url={},\n rtn={},{}", uri, json, jsonRtn);
             return jsonRtn;
         } catch (Exception e) {
-            String msg = "get user info failed: url=" + WechatUrl.WECHAT_GET_USERS_URL + "?access_token=" + accessToken + "&next_openid=" + StringUtils.defaultString(nextOpenId);
+            String msg = "get user info failed: url=" + WechatUrl.GET_USERS_URL + "?access_token=" + accessToken + "&next_openid=" + StringUtils.defaultString(nextOpenId);
             log.error(msg, e);
             return null;
         }

@@ -31,7 +31,7 @@ public class MessageUtil {
         String body = JSONObject.toJSONString(customMessage);
         String accessToken = AccessTokenUtil.getAccessToken(license);
         try {
-            URI uri = new URIBuilder(WechatUrl.WECHAT_SEND_CUSTOM_MESSAGE_URL)
+            URI uri = new URIBuilder(WechatUrl.SEND_CUSTOM_MESSAGE_URL)
                     .setParameter("access_token", accessToken)
                     .build();
 
@@ -44,7 +44,7 @@ public class MessageUtil {
             return jsonRtn;
         } catch (Exception e) {
             String msg = "send custom message failed:\n " +
-                    "url=" + WechatUrl.WECHAT_SEND_CUSTOM_MESSAGE_URL + "?access_token=" + accessToken + ",\n body=" + body;
+                    "url=" + WechatUrl.SEND_CUSTOM_MESSAGE_URL + "?access_token=" + accessToken + ",\n body=" + body;
             log.error(msg, e);
             return null;
         }

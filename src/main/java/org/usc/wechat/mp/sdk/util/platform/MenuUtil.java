@@ -39,7 +39,7 @@ public class MenuUtil {
         String body = JSONObject.toJSONString(menu);
         String accessToken = AccessTokenUtil.getAccessToken(license);
         try {
-            URI uri = new URIBuilder(WechatUrl.WECHAT_CREATE_MENU_URL)
+            URI uri = new URIBuilder(WechatUrl.CREATE_MENU_URL)
                     .setParameter("access_token", accessToken)
                     .build();
 
@@ -52,7 +52,7 @@ public class MenuUtil {
             return jsonRtn;
         } catch (Exception e) {
             String msg = "create menu failed:\n " +
-                    "url=" + WechatUrl.WECHAT_CREATE_MENU_URL + "?access_token=" + accessToken + ",\n body=" + body;
+                    "url=" + WechatUrl.CREATE_MENU_URL + "?access_token=" + accessToken + ",\n body=" + body;
             log.error(msg, e);
             return null;
         }
@@ -61,7 +61,7 @@ public class MenuUtil {
     public static Menu getMenu(License license) {
         String accessToken = AccessTokenUtil.getAccessToken(license);
         try {
-            URI uri = new URIBuilder(WechatUrl.WECHAT_GET_MENU_URL)
+            URI uri = new URIBuilder(WechatUrl.GET_MENU_URL)
                     .setParameter("access_token", accessToken)
                     .build();
 
@@ -70,7 +70,7 @@ public class MenuUtil {
             log.info("get menu:\n url={},\n rtn={},{}", uri, json, menu);
             return menu;
         } catch (Exception e) {
-            String msg = "get menu failed: url=" + WechatUrl.WECHAT_GET_MENU_URL + "?access_token=" + accessToken;
+            String msg = "get menu failed: url=" + WechatUrl.GET_MENU_URL + "?access_token=" + accessToken;
             log.error(msg, e);
             return null;
         }
@@ -111,7 +111,7 @@ public class MenuUtil {
     public static JsonRtn deleteMenu(License license) {
         String accessToken = AccessTokenUtil.getAccessToken(license);
         try {
-            URI uri = new URIBuilder(WechatUrl.WECHAT_DELETE_MENU_URL)
+            URI uri = new URIBuilder(WechatUrl.DELETE_MENU_URL)
                     .setParameter("access_token", accessToken)
                     .build();
 
@@ -121,7 +121,7 @@ public class MenuUtil {
             log.info("delete menu:\n url={},\n rtn={},{}", uri, json, rtn);
             return rtn;
         } catch (Exception e) {
-            String msg = "delete menu failed: url=" + WechatUrl.WECHAT_DELETE_MENU_URL + "?access_token=" + accessToken;
+            String msg = "delete menu failed: url=" + WechatUrl.DELETE_MENU_URL + "?access_token=" + accessToken;
             log.error(msg, e);
             return null;
         }

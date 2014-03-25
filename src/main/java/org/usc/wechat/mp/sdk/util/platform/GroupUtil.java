@@ -34,7 +34,7 @@ public class GroupUtil {
     public static GroupsJsonRtn getGroups(License license) {
         String accessToken = AccessTokenUtil.getAccessToken(license);
         try {
-            URI uri = new URIBuilder(WechatUrl.WECHAT_GET_GROUPS_URL)
+            URI uri = new URIBuilder(WechatUrl.GET_GROUPS_URL)
                     .setParameter("access_token", accessToken)
                     .build();
 
@@ -43,7 +43,7 @@ public class GroupUtil {
             log.info("get groups:\n url={},\n rtn={},{}", uri, json, jsonRtn);
             return jsonRtn;
         } catch (Exception e) {
-            String msg = "get groups failed:\n url=" + WechatUrl.WECHAT_GET_GROUPS_URL + "?access_token=" + accessToken;
+            String msg = "get groups failed:\n url=" + WechatUrl.GET_GROUPS_URL + "?access_token=" + accessToken;
             log.error(msg, e);
             return null;
         }
@@ -57,7 +57,7 @@ public class GroupUtil {
         String body = JSONObject.toJSONString(new OpenId(openId));
         String accessToken = AccessTokenUtil.getAccessToken(license);
         try {
-            URI uri = new URIBuilder(WechatUrl.WECHAT_GET_GROUP_BY_OPEN_ID_URL)
+            URI uri = new URIBuilder(WechatUrl.GET_GROUP_BY_OPEN_ID_URL)
                     .setParameter("access_token", accessToken)
                     .build();
 
@@ -69,7 +69,7 @@ public class GroupUtil {
             return jsonRtn;
         } catch (Exception e) {
             String msg = "get group id failed:\n" +
-                    " url=" + WechatUrl.WECHAT_GET_GROUP_BY_OPEN_ID_URL + "?access_token=" + accessToken + ",\n body=" + body;
+                    " url=" + WechatUrl.GET_GROUP_BY_OPEN_ID_URL + "?access_token=" + accessToken + ",\n body=" + body;
             log.error(msg, e);
             return null;
         }
@@ -83,7 +83,7 @@ public class GroupUtil {
         String body = JSONObject.toJSONString(new GroupWarpper(new Group(groupName)));
         String accessToken = AccessTokenUtil.getAccessToken(license);
         try {
-            URI uri = new URIBuilder(WechatUrl.WECHAT_CREATE_GROUP_URL)
+            URI uri = new URIBuilder(WechatUrl.CREATE_GROUP_URL)
                     .setParameter("access_token", accessToken)
                     .build();
 
@@ -96,7 +96,7 @@ public class GroupUtil {
             return jsonRtn;
         } catch (Exception e) {
             String msg = "create group failed:\n " +
-                    "url=" + WechatUrl.WECHAT_CREATE_GROUP_URL + "?access_token=" + accessToken + ",\n body=" + body;
+                    "url=" + WechatUrl.CREATE_GROUP_URL + "?access_token=" + accessToken + ",\n body=" + body;
             log.error(msg, e);
             return null;
         }
@@ -111,7 +111,7 @@ public class GroupUtil {
         String body = JSONObject.toJSONString(new GroupWarpper(group));
         String accessToken = AccessTokenUtil.getAccessToken(license);
         try {
-            URI uri = new URIBuilder(WechatUrl.WECHAT_UPDATE_GROUP_URL)
+            URI uri = new URIBuilder(WechatUrl.UPDATE_GROUP_URL)
                     .setParameter("access_token", accessToken)
                     .build();
 
@@ -124,7 +124,7 @@ public class GroupUtil {
             return jsonRtn;
         } catch (Exception e) {
             String msg = "update group failed:\n " +
-                    "url=" + WechatUrl.WECHAT_UPDATE_GROUP_URL + "?access_token=" + accessToken + ",\n body=" + body;
+                    "url=" + WechatUrl.UPDATE_GROUP_URL + "?access_token=" + accessToken + ",\n body=" + body;
             log.error(msg, e);
             return null;
         }
@@ -138,7 +138,7 @@ public class GroupUtil {
         String body = JSONObject.toJSONString(new MemberMovement(openId, toGroupId));
         String accessToken = AccessTokenUtil.getAccessToken(license);
         try {
-            URI uri = new URIBuilder(WechatUrl.WECHAT_MOVE_MEMBER_GROUP_URL)
+            URI uri = new URIBuilder(WechatUrl.MOVE_MEMBER_GROUP_URL)
                     .setParameter("access_token", accessToken)
                     .build();
 
@@ -151,7 +151,7 @@ public class GroupUtil {
             return jsonRtn;
         } catch (Exception e) {
             String msg = "move member failed:\n " +
-                    "url=" + WechatUrl.WECHAT_MOVE_MEMBER_GROUP_URL + "?access_token=" + accessToken + ",\n body=" + body;
+                    "url=" + WechatUrl.MOVE_MEMBER_GROUP_URL + "?access_token=" + accessToken + ",\n body=" + body;
             log.error(msg, e);
             return null;
         }

@@ -51,7 +51,7 @@ public class QRcodeUtil {
         String body = JSONObject.toJSONString(ticket);
         String accessToken = AccessTokenUtil.getAccessToken(license);
         try {
-            URI uri = new URIBuilder(WechatUrl.WECHAT_CREATE_QRCODE_URL)
+            URI uri = new URIBuilder(WechatUrl.CREATE_QRCODE_URL)
                     .setParameter("access_token", accessToken)
                     .build();
 
@@ -64,7 +64,7 @@ public class QRcodeUtil {
             return jsonRtn;
         } catch (Exception e) {
             String msg = "create qrcode failed:\n " +
-                    "url=" + WechatUrl.WECHAT_CREATE_QRCODE_URL + "?access_token=" + accessToken + ",\n body=" + body;
+                    "url=" + WechatUrl.CREATE_QRCODE_URL + "?access_token=" + accessToken + ",\n body=" + body;
             log.error(msg, e);
             return null;
         }
@@ -76,14 +76,14 @@ public class QRcodeUtil {
         }
 
         try {
-            URI uri = new URIBuilder(WechatUrl.WECHAT_SHOW_QRCODE_URL)
+            URI uri = new URIBuilder(WechatUrl.SHOW_QRCODE_URL)
                     .setParameter("ticket", ticket)
                     .build();
 
             log.info("build qrcode img url: url={}", uri);
             return uri.toString();
         } catch (Exception e) {
-            String msg = "build qrcode img url failed: url=" + WechatUrl.WECHAT_SHOW_QRCODE_URL + "?ticket=" + ticket;
+            String msg = "build qrcode img url failed: url=" + WechatUrl.SHOW_QRCODE_URL + "?ticket=" + ticket;
             log.error(msg, e);
             return StringUtils.EMPTY;
         }
