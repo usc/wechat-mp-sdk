@@ -1,4 +1,4 @@
-wechat-mp-sdk
+wechat-mp-sdk  [![Build Status](https://travis-ci.org/usc/wechat-mp-sdk.svg?branch=master)](https://travis-ci.org/usc/wechat-mp-sdk)
 =============
 
 wechat management platform java sdk
