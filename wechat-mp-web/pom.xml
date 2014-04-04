@@ -38,7 +38,7 @@
         <dependency>
             <groupId>com.github.usc</groupId>
             <artifactId>wechat-mp-sdk</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <version>0.2.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
