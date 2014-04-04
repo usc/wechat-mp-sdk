@@ -3,7 +3,7 @@ wechat-mp-sdk  [![Build Status](https://travis-ci.org/usc/wechat-mp-sdk.svg?bran
 
 wechat management platform java sdk
 
-wechat mp servlet3.0 demo please via <https://github.com/usc/wechat-mp-web>
+and has a demo which use servlet3.0
 
 ### Maven Dependency ###
 ``` xml
