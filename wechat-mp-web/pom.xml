@@ -30,12 +30,6 @@
         </dependency>
 
         <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.8</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.github.usc</groupId>
             <artifactId>wechat-mp-sdk</artifactId>
             <version>0.2.0-SNAPSHOT</version>

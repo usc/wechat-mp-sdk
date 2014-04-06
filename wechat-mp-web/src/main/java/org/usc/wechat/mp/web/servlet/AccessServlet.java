@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
@@ -25,6 +24,9 @@ import org.usc.wechat.mp.sdk.vo.Signature;
 import org.usc.wechat.mp.sdk.vo.message.reply.Reply;
 import org.usc.wechat.mp.sdk.vo.push.Push;
 import org.usc.wechat.mp.web.util.WebUtil;
+
+import com.google.common.base.Charsets;
+import com.google.common.hash.Hashing;
 
 /**
  *
@@ -93,7 +95,7 @@ public class AccessServlet extends HttpServlet {
         BeanUtils.populate(signature, request.getParameterMap());
         signature.setToken(TOKEN);
 
-        String sign = DigestUtils.sha1Hex(buildSignatureText(signature));
+        String sign = Hashing.sha1().hashString(buildSignatureText(signature), Charsets.UTF_8).toString();
         return sign.equalsIgnoreCase(signature.getSignature());
     }
 
