@@ -6,10 +6,14 @@ package org.usc.wechat.mp.sdk.util;
  */
 public interface WechatUrl {
     String TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token";
+
     String SEND_CUSTOM_MESSAGE_URL = "https://api.weixin.qq.com/cgi-bin/message/custom/send";
+    String SEND_MASS_MESSAGE_URL = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall";
+    String DELETE_MASS_MESSAGE_URL = "https://api.weixin.qq.com//cgi-bin/message/mass/delete";
 
     String UPLOAD_MEDIA_URL = "http://file.api.weixin.qq.com/cgi-bin/media/upload";
     String GET_MEDIA_URL = "http://file.api.weixin.qq.com/cgi-bin/media/get";
+    String UPLOAD_NEWS_MEDIA_URL = "https://api.weixin.qq.com/cgi-bin/media/uploadnews";
 
     String CREATE_MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/create";
     String GET_MENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/get";
