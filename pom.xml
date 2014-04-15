@@ -8,7 +8,7 @@
     </parent>
     <groupId>com.github.usc</groupId>
     <artifactId>wechat-mp-pom</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>wechat-mp-pom</name>
     <url>https://github.com/usc/wechat-mp-sdk</url>

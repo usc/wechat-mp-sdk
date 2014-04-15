@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.usc</groupId>
     <artifactId>wechat-mp-web</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>wechat-mp-web</name>
 
@@ -32,7 +32,7 @@
         <dependency>
             <groupId>com.github.usc</groupId>
             <artifactId>wechat-mp-sdk</artifactId>
-            <version>0.2.0-SNAPSHOT</version>
+            <version>1.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
