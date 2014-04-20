@@ -1,5 +1,4 @@
-
-微信公众平台Java SDK  [![Build Status](https://travis-ci.org/usc/wechat-mp-sdk.svg?branch=master)](https://travis-ci.org/usc/wechat-mp-sdk)
+# 微信公众平台Java SDK  [![Build Status](https://travis-ci.org/usc/wechat-mp-sdk.svg?branch=master)](https://travis-ci.org/usc/wechat-mp-sdk)
 
 ## 功能	
 完成了[微信公众平台开发者文档](http://mp.weixin.qq.com/wiki/index.php)上面的大部分的功能，“网页授权”和“支付”等功能会在后续添加。
