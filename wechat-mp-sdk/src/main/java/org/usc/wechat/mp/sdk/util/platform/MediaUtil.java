@@ -63,7 +63,7 @@ public class MediaUtil {
                     // .connectTimeout(100000)
                     // .socketTimeout(100000)
                     .body(httpEntity)
-                    .execute().returnContent().asString();
+                    .execute().handleResponse(HttpUtil.UTF8_CONTENT_HANDLER);
 
             MediaJsonRtn jsonRtn = JsonRtnUtil.parseJsonRtn(rtnJson, MediaJsonRtn.class);
             log.info("upload media:\n url={},\n body={},\n rtn={},{}", uri, mediaFile, rtnJson, jsonRtn);

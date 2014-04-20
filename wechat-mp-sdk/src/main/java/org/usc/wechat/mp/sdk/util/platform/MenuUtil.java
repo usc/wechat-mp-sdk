@@ -10,7 +10,6 @@ import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.usc.wechat.mp.sdk.util.HttpUtil;
-import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
 import org.usc.wechat.mp.sdk.util.WechatUrl;
 import org.usc.wechat.mp.sdk.vo.JsonRtn;
 import org.usc.wechat.mp.sdk.vo.WechatRequest;
@@ -89,21 +88,6 @@ public class MenuUtil {
     }
 
     public static JsonRtn deleteMenu(License license) {
-        String accessToken = AccessTokenUtil.getAccessToken(license);
-        try {
-            URI uri = new URIBuilder(WechatUrl.DELETE_MENU_URL)
-                    .setParameter("access_token", accessToken)
-                    .build();
-
-            String json = Request.Get(uri).execute().returnContent().asString();
-            JsonRtn rtn = JsonRtnUtil.parseJsonRtn(json, JsonRtn.class);
-
-            log.info("delete menu:\n url={},\n rtn={},{}", uri, json, rtn);
-            return rtn;
-        } catch (Exception e) {
-            String msg = "delete menu failed: url=" + WechatUrl.DELETE_MENU_URL + "?access_token=" + accessToken;
-            log.error(msg, e);
-            return null;
-        }
+        return HttpUtil.getRequest(WechatRequest.DELETE_MENU, license, JsonRtn.class);
     }
 }
