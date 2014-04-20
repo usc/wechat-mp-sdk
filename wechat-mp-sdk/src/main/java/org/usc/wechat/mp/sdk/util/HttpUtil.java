@@ -71,12 +71,7 @@ public class HttpUtil {
     public static <T extends JsonRtn> T getRequest(WechatRequest request, License license, Map<String, String> paramMap, Class<T> jsonRtnClazz) {
         String requestUrl = request.getUrl();
         String requestName = request.getName();
-
-        List<NameValuePair> nameValuePairs = Lists.newArrayList();
-        nameValuePairs.add(new BasicNameValuePair("access_token", AccessTokenUtil.getAccessToken(license)));
-        if (paramMap != null) {
-            Iterables.addAll(nameValuePairs, Iterables.transform(paramMap.entrySet(), nameValueTransformFunction));
-        }
+        List<NameValuePair> nameValuePairs = buildNameValuePairs(license, paramMap);
 
         try {
             URI uri = new URIBuilder(requestUrl).setParameters(nameValuePairs).build();
@@ -103,13 +98,8 @@ public class HttpUtil {
 
         String requestUrl = request.getUrl();
         String requestName = request.getName();
+        List<NameValuePair> nameValuePairs = buildNameValuePairs(license, paramMap);
         String body = JSONObject.toJSONString(requestBody);
-
-        List<NameValuePair> nameValuePairs = Lists.newArrayList();
-        nameValuePairs.add(new BasicNameValuePair("access_token", AccessTokenUtil.getAccessToken(license)));
-        if (paramMap != null) {
-            Iterables.addAll(nameValuePairs, Iterables.transform(paramMap.entrySet(), nameValueTransformFunction));
-        }
 
         try {
             URI uri = new URIBuilder(requestUrl).setParameters(nameValuePairs).build();
@@ -126,5 +116,14 @@ public class HttpUtil {
             log.error(msg, e);
             return null;
         }
+    }
+
+    private static List<NameValuePair> buildNameValuePairs(License license, Map<String, String> paramMap) {
+        List<NameValuePair> nameValuePairs = Lists.newArrayList();
+        nameValuePairs.add(new BasicNameValuePair("access_token", AccessTokenUtil.getAccessToken(license)));
+        if (paramMap != null) {
+            Iterables.addAll(nameValuePairs, Iterables.transform(paramMap.entrySet(), nameValueTransformFunction));
+        }
+        return nameValuePairs;
     }
 }
