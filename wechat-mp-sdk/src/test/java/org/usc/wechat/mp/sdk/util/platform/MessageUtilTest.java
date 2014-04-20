@@ -3,7 +3,6 @@ package org.usc.wechat.mp.sdk.util.platform;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.usc.wechat.mp.sdk.util.platform.MessageUtil;
 import org.usc.wechat.mp.sdk.vo.message.custom.ArticleCustomMessage;
 import org.usc.wechat.mp.sdk.vo.message.custom.CustomMessage;
 import org.usc.wechat.mp.sdk.vo.message.custom.ImageCustomMessage;
@@ -19,6 +18,8 @@ import org.usc.wechat.mp.sdk.vo.message.custom.detail.TextCustomMessageDetail;
 import org.usc.wechat.mp.sdk.vo.message.custom.detail.VideoCustomMessageDetail;
 import org.usc.wechat.mp.sdk.vo.token.License;
 
+import com.google.common.collect.ImmutableList;
+
 /**
  *
  * @author Shunli
@@ -26,7 +27,12 @@ import org.usc.wechat.mp.sdk.vo.token.License;
 public class MessageUtilTest {
     private static final License license = new License("test", "wxafc93a29c1e2a59f", "5613787a72659cf3fae3bf1a5152b17b");
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
+        testCustomMessage();
+        testMassMessage();
+    }
+
+    private static void testCustomMessage() {
         TextCustomMessageDetail textDeatil = new TextCustomMessageDetail("t_content");
         CustomMessage textNews = new TextCustomMessage(textDeatil);
         doSendMsg(textNews);
@@ -58,5 +64,15 @@ public class MessageUtilTest {
     private static void doSendMsg(CustomMessage msg) {
         msg.setToUser("oVDIDt3_SMFnLBBfmQtr67oYT3NI");
         MessageUtil.sendCustomMessage(license, msg);
+    }
+
+    private static void testMassMessage() {
+        String mediaId = "OS3XEqCEjSgIzp_ggt5yLihCThfcMM2NafRgWj44tRSKjjNGvHDxQbTZ7nIpEhlI";
+        System.out.println(MessageUtil.sendMassMessageByGroup(license, "1", mediaId));
+
+        List<String> openIds = ImmutableList.of("oVDIDt3_SMFnLBBfmQtr67oYT3NI", "oVDIDt_SyuhqP7WF7zliVZrqY2wY");
+        System.out.println(MessageUtil.sendMassMessageByUsers(license, openIds, mediaId));
+
+        System.out.println(MessageUtil.deleteMassMessage(license, 34182));
     }
 }

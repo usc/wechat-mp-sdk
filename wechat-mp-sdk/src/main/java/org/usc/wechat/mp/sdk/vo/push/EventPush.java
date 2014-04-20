@@ -30,6 +30,21 @@ public class EventPush extends Push {
     @XmlElement(name = "Precision")
     private String precision;
 
+    @XmlElement(name = "Status")
+    private String status;
+
+    @XmlElement(name = "TotalCount")
+    private long totalCount;
+
+    @XmlElement(name = "FilterCount")
+    private long filterCount;
+
+    @XmlElement(name = "SentCount")
+    private long sentCount;
+
+    @XmlElement(name = "ErrorCount")
+    private long errorCount;
+
     public String getEvent() {
         return event;
     }
@@ -76,6 +91,46 @@ public class EventPush extends Push {
 
     public void setPrecision(String precision) {
         this.precision = precision;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public long getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(long totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public long getFilterCount() {
+        return filterCount;
+    }
+
+    public void setFilterCount(long filterCount) {
+        this.filterCount = filterCount;
+    }
+
+    public long getSentCount() {
+        return sentCount;
+    }
+
+    public void setSentCount(long sentCount) {
+        this.sentCount = sentCount;
+    }
+
+    public long getErrorCount() {
+        return errorCount;
+    }
+
+    public void setErrorCount(long errorCount) {
+        this.errorCount = errorCount;
     }
 
 }

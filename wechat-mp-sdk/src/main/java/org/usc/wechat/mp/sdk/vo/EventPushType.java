@@ -5,7 +5,12 @@ package org.usc.wechat.mp.sdk.vo;
  * @author Shunli
  */
 public enum EventPushType {
-    SUBSCRIBE("subscribe"), UNSUBSCRIBE("unsubscribe"), CLICK("CLICK"), SCAN("scan"), LOCATION("LOCATION");
+    SUBSCRIBE("subscribe"),
+    UNSUBSCRIBE("unsubscribe"),
+    CLICK("CLICK"),
+    SCAN("scan"),
+    LOCATION("LOCATION"),
+    MASSSENDJOBFINISH("MASSSENDJOBFINISH");
 
     private String type;
 
