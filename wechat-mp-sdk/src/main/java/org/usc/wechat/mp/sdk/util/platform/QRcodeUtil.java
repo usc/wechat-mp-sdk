@@ -7,7 +7,6 @@ import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.usc.wechat.mp.sdk.util.HttpUtil;
-import org.usc.wechat.mp.sdk.util.WechatUrl;
 import org.usc.wechat.mp.sdk.vo.WechatRequest;
 import org.usc.wechat.mp.sdk.vo.qrcode.QRcodeActionInfo;
 import org.usc.wechat.mp.sdk.vo.qrcode.QRcodeScene;
@@ -52,15 +51,16 @@ public class QRcodeUtil {
             return StringUtils.EMPTY;
         }
 
+        String url = WechatRequest.SHOW_QRCODE.getUrl();
         try {
-            URI uri = new URIBuilder(WechatUrl.SHOW_QRCODE_URL)
+            URI uri = new URIBuilder(url)
                     .setParameter("ticket", ticket)
                     .build();
 
             log.info("build qrcode img url: url={}", uri);
             return uri.toString();
         } catch (Exception e) {
-            String msg = "build qrcode img url failed: url=" + WechatUrl.SHOW_QRCODE_URL + "?ticket=" + ticket;
+            String msg = "build qrcode img url failed: url=" + url + "?ticket=" + ticket;
             log.error(msg, e);
             return StringUtils.EMPTY;
         }

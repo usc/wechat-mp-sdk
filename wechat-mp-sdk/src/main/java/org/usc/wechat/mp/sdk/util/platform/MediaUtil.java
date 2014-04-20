@@ -23,7 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.usc.wechat.mp.sdk.util.HttpUtil;
 import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
-import org.usc.wechat.mp.sdk.util.WechatUrl;
 import org.usc.wechat.mp.sdk.vo.JsonRtn;
 import org.usc.wechat.mp.sdk.vo.WechatRequest;
 import org.usc.wechat.mp.sdk.vo.media.MediaFile;
@@ -48,9 +47,10 @@ public class MediaUtil {
         // maybe todo more mediaFile legality check
 
         String accessToken = AccessTokenUtil.getAccessToken(license);
+        String url = WechatRequest.UPLOAD_MEDIA.getUrl();
         try {
             MediaType mediaType = mediaFile.getMediaType();
-            URI uri = new URIBuilder(WechatUrl.UPLOAD_MEDIA_URL)
+            URI uri = new URIBuilder(url)
                     .setParameter("access_token", accessToken)
                     .setParameter("type", mediaType.getName())
                     .build();
@@ -70,7 +70,7 @@ public class MediaUtil {
             return jsonRtn;
         } catch (Exception e) {
             String msg = "upload media failed:\n " +
-                    "url=" + WechatUrl.UPLOAD_MEDIA_URL + "?access_token=" + accessToken + ",\n body=" + mediaFile;
+                    "url=" + url + "?access_token=" + accessToken + ",\n body=" + mediaFile;
             log.error(msg, e);
             return null;
         }
@@ -90,8 +90,9 @@ public class MediaUtil {
         }
 
         String accessToken = AccessTokenUtil.getAccessToken(license);
+        String url = WechatRequest.GET_MEDIA.getUrl();
         try {
-            URI uri = new URIBuilder(WechatUrl.GET_MEDIA_URL)
+            URI uri = new URIBuilder(url)
                     .setParameter("access_token", accessToken)
                     .setParameter("media_id", mediaId)
                     .build();
@@ -100,7 +101,7 @@ public class MediaUtil {
             return downloadFile(response, mediaId, path, uri);
         } catch (Exception e) {
             String msg = "get media failed:\n " +
-                    "url=" + WechatUrl.GET_MEDIA_URL + "?access_token=" + accessToken + "&media_id=" + mediaId;
+                    "url=" + url + "?access_token=" + accessToken + "&media_id=" + mediaId;
             log.error(msg, e);
             return null;
         }

@@ -10,7 +10,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
-import org.usc.wechat.mp.sdk.util.WechatUrl;
+import org.usc.wechat.mp.sdk.vo.WechatRequest;
 import org.usc.wechat.mp.sdk.vo.token.AccessTokenJsonRtn;
 import org.usc.wechat.mp.sdk.vo.token.DelayItem;
 import org.usc.wechat.mp.sdk.vo.token.GrantType;
@@ -32,7 +32,7 @@ public class AccessTokenUtil {
     private final static LoadingCache<License, String> cache = CacheBuilder.newBuilder().build(new CacheLoader<License, String>() {
         @Override
         public String load(License license) throws Exception {
-            URI uri = new URIBuilder(WechatUrl.TOKEN_URL)
+            URI uri = new URIBuilder(WechatRequest.GET_ACCESS_TOKEN.getUrl())
                     .setParameter("grant_type", GrantType.CLIENT_CREDENTIAL.getValue())
                     .setParameter("appid", license.getAppId())
                     .setParameter("secret", license.getAppSecret())

@@ -10,7 +10,6 @@ import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.usc.wechat.mp.sdk.util.HttpUtil;
-import org.usc.wechat.mp.sdk.util.WechatUrl;
 import org.usc.wechat.mp.sdk.vo.JsonRtn;
 import org.usc.wechat.mp.sdk.vo.WechatRequest;
 import org.usc.wechat.mp.sdk.vo.menu.Menu;
@@ -39,8 +38,9 @@ public class MenuUtil {
 
     public static Menu getMenu(License license) {
         String accessToken = AccessTokenUtil.getAccessToken(license);
+        String url = WechatRequest.GET_MENU.getUrl();
         try {
-            URI uri = new URIBuilder(WechatUrl.GET_MENU_URL)
+            URI uri = new URIBuilder(url)
                     .setParameter("access_token", accessToken)
                     .build();
 
@@ -49,7 +49,7 @@ public class MenuUtil {
             log.info("get menu:\n url={},\n rtn={},{}", uri, json, menu);
             return menu;
         } catch (Exception e) {
-            String msg = "get menu failed: url=" + WechatUrl.GET_MENU_URL + "?access_token=" + accessToken;
+            String msg = "get menu failed: url=" + url + "?access_token=" + accessToken;
             log.error(msg, e);
             return null;
         }
