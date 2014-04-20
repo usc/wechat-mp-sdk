@@ -12,28 +12,26 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.Consts;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.usc.wechat.mp.sdk.util.HttpUtil;
 import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
 import org.usc.wechat.mp.sdk.util.WechatUrl;
 import org.usc.wechat.mp.sdk.vo.JsonRtn;
-import org.usc.wechat.mp.sdk.vo.media.NewsMedia;
+import org.usc.wechat.mp.sdk.vo.WechatRequest;
 import org.usc.wechat.mp.sdk.vo.media.MediaFile;
 import org.usc.wechat.mp.sdk.vo.media.MediaJsonRtn;
 import org.usc.wechat.mp.sdk.vo.media.MediaType;
 import org.usc.wechat.mp.sdk.vo.media.MimeType;
+import org.usc.wechat.mp.sdk.vo.media.NewsMedia;
 import org.usc.wechat.mp.sdk.vo.token.License;
-
-import com.alibaba.fastjson.JSONObject;
 
 /**
  *
@@ -83,26 +81,7 @@ public class MediaUtil {
             return null;
         }
 
-        String body = JSONObject.toJSONString(newsMedia);
-        String accessToken = AccessTokenUtil.getAccessToken(license);
-        try {
-            URI uri = new URIBuilder(WechatUrl.UPLOAD_NEWS_MEDIA_URL)
-                    .setParameter("access_token", accessToken)
-                    .build();
-
-            String rtnJson = Request.Post(uri)
-                    .bodyString(body, ContentType.create("text/html", Consts.UTF_8))
-                    .execute().returnContent().asString();
-
-            MediaJsonRtn jsonRtn = JsonRtnUtil.parseJsonRtn(rtnJson, MediaJsonRtn.class);
-            log.info("upload news media:\n url={},\n body={},\n rtn={},{}", uri, body, rtnJson, jsonRtn);
-            return jsonRtn;
-        } catch (Exception e) {
-            String msg = "upload news media:\n " +
-                    "url=" + WechatUrl.UPLOAD_NEWS_MEDIA_URL + "?access_token=" + accessToken + ",\n body=" + body;
-            log.error(msg, e);
-            return null;
-        }
+        return HttpUtil.postBodyRequest(WechatRequest.UPLOAD_NEWS_MEDIA, license, newsMedia, MediaJsonRtn.class);
     }
 
     public static File getMedia(License license, String mediaId, String path) {

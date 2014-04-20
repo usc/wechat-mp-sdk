@@ -3,15 +3,12 @@ package org.usc.wechat.mp.sdk.util.platform;
 import java.net.URI;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.Consts;
-import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.ContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.usc.wechat.mp.sdk.util.WechatUrl;
 import org.usc.wechat.mp.sdk.util.HttpUtil;
-import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
+import org.usc.wechat.mp.sdk.util.WechatUrl;
+import org.usc.wechat.mp.sdk.vo.WechatRequest;
 import org.usc.wechat.mp.sdk.vo.qrcode.QRcodeActionInfo;
 import org.usc.wechat.mp.sdk.vo.qrcode.QRcodeScene;
 import org.usc.wechat.mp.sdk.vo.qrcode.QRcodeTicket;
@@ -19,7 +16,6 @@ import org.usc.wechat.mp.sdk.vo.qrcode.QRcodeTicketJsonRtn;
 import org.usc.wechat.mp.sdk.vo.qrcode.QRcodeType;
 import org.usc.wechat.mp.sdk.vo.token.License;
 
-import com.alibaba.fastjson.JSONObject;
 import com.google.common.primitives.Ints;
 
 /**
@@ -48,26 +44,7 @@ public class QRcodeUtil {
     }
 
     private static QRcodeTicketJsonRtn createQRcode(License license, QRcodeTicket ticket) {
-        String body = JSONObject.toJSONString(ticket);
-        String accessToken = AccessTokenUtil.getAccessToken(license);
-        try {
-            URI uri = new URIBuilder(WechatUrl.CREATE_QRCODE_URL)
-                    .setParameter("access_token", accessToken)
-                    .build();
-
-            String json = Request.Post(uri)
-                    .bodyString(body, ContentType.create("text/html", Consts.UTF_8))
-                    .execute().handleResponse(HttpUtil.UTF8_CONTENT_HANDLER);
-
-            QRcodeTicketJsonRtn jsonRtn = JsonRtnUtil.parseJsonRtn(json, QRcodeTicketJsonRtn.class);
-            log.info("create qrcode:\n url={},\n body={},\n rtn={},{}", uri, body, json, jsonRtn);
-            return jsonRtn;
-        } catch (Exception e) {
-            String msg = "create qrcode failed:\n " +
-                    "url=" + WechatUrl.CREATE_QRCODE_URL + "?access_token=" + accessToken + ",\n body=" + body;
-            log.error(msg, e);
-            return null;
-        }
+        return HttpUtil.postBodyRequest(WechatRequest.CREATE_QRCODE, license, ticket, QRcodeTicketJsonRtn.class);
     }
 
     public static String bulidQRcodeImgUrl(String ticket) {

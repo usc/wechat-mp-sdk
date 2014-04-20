@@ -5,16 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.Consts;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.ContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.usc.wechat.mp.sdk.util.WechatUrl;
 import org.usc.wechat.mp.sdk.util.HttpUtil;
 import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
+import org.usc.wechat.mp.sdk.util.WechatUrl;
 import org.usc.wechat.mp.sdk.vo.JsonRtn;
+import org.usc.wechat.mp.sdk.vo.WechatRequest;
 import org.usc.wechat.mp.sdk.vo.menu.Menu;
 import org.usc.wechat.mp.sdk.vo.menu.MenuInfo;
 import org.usc.wechat.mp.sdk.vo.menu.MultiMenuInfo;
@@ -36,26 +35,7 @@ public class MenuUtil {
             return null;
         }
 
-        String body = JSONObject.toJSONString(menu);
-        String accessToken = AccessTokenUtil.getAccessToken(license);
-        try {
-            URI uri = new URIBuilder(WechatUrl.CREATE_MENU_URL)
-                    .setParameter("access_token", accessToken)
-                    .build();
-
-            String json = Request.Post(uri)
-                    .bodyString(body, ContentType.create("text/html", Consts.UTF_8))
-                    .execute().returnContent().asString();
-
-            JsonRtn jsonRtn = JsonRtnUtil.parseJsonRtn(json, JsonRtn.class);
-            log.info("create menu:\n url={},\n body={},\n rtn={},{}", uri, body, json, jsonRtn);
-            return jsonRtn;
-        } catch (Exception e) {
-            String msg = "create menu failed:\n " +
-                    "url=" + WechatUrl.CREATE_MENU_URL + "?access_token=" + accessToken + ",\n body=" + body;
-            log.error(msg, e);
-            return null;
-        }
+        return HttpUtil.postBodyRequest(WechatRequest.CREATE_MENU, license, menu, JsonRtn.class);
     }
 
     public static Menu getMenu(License license) {

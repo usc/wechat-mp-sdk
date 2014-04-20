@@ -3,16 +3,15 @@ package org.usc.wechat.mp.sdk.util.platform;
 import java.net.URI;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.Consts;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.ContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.usc.wechat.mp.sdk.util.WechatUrl;
 import org.usc.wechat.mp.sdk.util.HttpUtil;
 import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
+import org.usc.wechat.mp.sdk.util.WechatUrl;
 import org.usc.wechat.mp.sdk.vo.JsonRtn;
+import org.usc.wechat.mp.sdk.vo.WechatRequest;
 import org.usc.wechat.mp.sdk.vo.group.Group;
 import org.usc.wechat.mp.sdk.vo.group.GroupIdJsonRtn;
 import org.usc.wechat.mp.sdk.vo.group.GroupJsonRtn;
@@ -21,8 +20,6 @@ import org.usc.wechat.mp.sdk.vo.group.GroupsJsonRtn;
 import org.usc.wechat.mp.sdk.vo.group.MemberMovement;
 import org.usc.wechat.mp.sdk.vo.group.OpenId;
 import org.usc.wechat.mp.sdk.vo.token.License;
-
-import com.alibaba.fastjson.JSONObject;
 
 /**
  *
@@ -54,25 +51,7 @@ public class GroupUtil {
             return null;
         }
 
-        String body = JSONObject.toJSONString(new OpenId(openId));
-        String accessToken = AccessTokenUtil.getAccessToken(license);
-        try {
-            URI uri = new URIBuilder(WechatUrl.GET_GROUP_BY_OPEN_ID_URL)
-                    .setParameter("access_token", accessToken)
-                    .build();
-
-            String json = Request.Post(uri)
-                    .bodyString(body, ContentType.create("text/html", Consts.UTF_8))
-                    .execute().handleResponse(HttpUtil.UTF8_CONTENT_HANDLER);
-            GroupIdJsonRtn jsonRtn = JsonRtnUtil.parseJsonRtn(json, GroupIdJsonRtn.class);
-            log.info("get group id :\n url={},\n body={},\n rtn={},{}", uri, body, json, jsonRtn);
-            return jsonRtn;
-        } catch (Exception e) {
-            String msg = "get group id failed:\n" +
-                    " url=" + WechatUrl.GET_GROUP_BY_OPEN_ID_URL + "?access_token=" + accessToken + ",\n body=" + body;
-            log.error(msg, e);
-            return null;
-        }
+        return HttpUtil.postBodyRequest(WechatRequest.GET_GROUP_BY_OPEN_ID, license, new OpenId(openId), GroupIdJsonRtn.class);
     }
 
     public static GroupJsonRtn createGroup(License license, String groupName) {
@@ -80,26 +59,7 @@ public class GroupUtil {
             return null;
         }
 
-        String body = JSONObject.toJSONString(new GroupWarpper(new Group(groupName)));
-        String accessToken = AccessTokenUtil.getAccessToken(license);
-        try {
-            URI uri = new URIBuilder(WechatUrl.CREATE_GROUP_URL)
-                    .setParameter("access_token", accessToken)
-                    .build();
-
-            String json = Request.Post(uri)
-                    .bodyString(body, ContentType.create("text/html", Consts.UTF_8))
-                    .execute().handleResponse(HttpUtil.UTF8_CONTENT_HANDLER);
-
-            GroupJsonRtn jsonRtn = JsonRtnUtil.parseJsonRtn(json, GroupJsonRtn.class);
-            log.info("create group:\n url={},\n body={},\n rtn={},{}", uri, body, json, jsonRtn);
-            return jsonRtn;
-        } catch (Exception e) {
-            String msg = "create group failed:\n " +
-                    "url=" + WechatUrl.CREATE_GROUP_URL + "?access_token=" + accessToken + ",\n body=" + body;
-            log.error(msg, e);
-            return null;
-        }
+        return HttpUtil.postBodyRequest(WechatRequest.CREATE_GROUP, license, new GroupWarpper(new Group(groupName)), GroupJsonRtn.class);
     }
 
     // TODO-Shunli: now update group always failed, tip system error, check later
@@ -108,26 +68,7 @@ public class GroupUtil {
             return null;
         }
 
-        String body = JSONObject.toJSONString(new GroupWarpper(group));
-        String accessToken = AccessTokenUtil.getAccessToken(license);
-        try {
-            URI uri = new URIBuilder(WechatUrl.UPDATE_GROUP_URL)
-                    .setParameter("access_token", accessToken)
-                    .build();
-
-            String json = Request.Post(uri)
-                    .bodyString(body, ContentType.create("text/html", Consts.UTF_8))
-                    .execute().handleResponse(HttpUtil.UTF8_CONTENT_HANDLER);
-
-            GroupJsonRtn jsonRtn = JsonRtnUtil.parseJsonRtn(json, GroupJsonRtn.class);
-            log.info("update group:\n url={},\n body={},\n rtn={},{}", uri, body, json, jsonRtn);
-            return jsonRtn;
-        } catch (Exception e) {
-            String msg = "update group failed:\n " +
-                    "url=" + WechatUrl.UPDATE_GROUP_URL + "?access_token=" + accessToken + ",\n body=" + body;
-            log.error(msg, e);
-            return null;
-        }
+        return HttpUtil.postBodyRequest(WechatRequest.UPDATE_GROUP, license, new GroupWarpper(group), GroupJsonRtn.class);
     }
 
     public static JsonRtn moveMember(License license, String openId, int toGroupId) {
@@ -135,26 +76,6 @@ public class GroupUtil {
             return null;
         }
 
-        String body = JSONObject.toJSONString(new MemberMovement(openId, toGroupId));
-        String accessToken = AccessTokenUtil.getAccessToken(license);
-        try {
-            URI uri = new URIBuilder(WechatUrl.MOVE_MEMBER_GROUP_URL)
-                    .setParameter("access_token", accessToken)
-                    .build();
-
-            String json = Request.Post(uri)
-                    .bodyString(body, ContentType.create("text/html", Consts.UTF_8))
-                    .execute().handleResponse(HttpUtil.UTF8_CONTENT_HANDLER);
-
-            GroupJsonRtn jsonRtn = JsonRtnUtil.parseJsonRtn(json, GroupJsonRtn.class);
-            log.info("move member:\n url={},\n body={},\n rtn={},{}", uri, body, json, jsonRtn);
-            return jsonRtn;
-        } catch (Exception e) {
-            String msg = "move member failed:\n " +
-                    "url=" + WechatUrl.MOVE_MEMBER_GROUP_URL + "?access_token=" + accessToken + ",\n body=" + body;
-            log.error(msg, e);
-            return null;
-        }
+        return HttpUtil.postBodyRequest(WechatRequest.MOVE_MEMBER_GROUP, license, new MemberMovement(openId, toGroupId), GroupJsonRtn.class);
     }
-
 }
