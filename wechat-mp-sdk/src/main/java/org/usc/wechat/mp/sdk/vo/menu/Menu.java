@@ -3,7 +3,7 @@ package org.usc.wechat.mp.sdk.vo.menu;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.usc.wechat.mp.sdk.util.ToStringUtil;
+import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -11,7 +11,7 @@ import com.alibaba.fastjson.annotation.JSONField;
  *
  * @author Shunli
  */
-public class Menu {
+public class Menu extends AbstractToStringBuilder {
     @JSONField(name = "button")
     private List<MenuInfo> menuInfos = new ArrayList<MenuInfo>();
 
@@ -30,8 +30,4 @@ public class Menu {
         this.menuInfos = menuInfos;
     }
 
-    @Override
-    public String toString() {
-        return ToStringUtil.toString(this);
-    }
 }

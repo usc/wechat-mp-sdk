@@ -1,6 +1,6 @@
 package org.usc.wechat.mp.sdk.vo.message.mass;
 
-import org.usc.wechat.mp.sdk.util.ToStringUtil;
+import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -8,7 +8,7 @@ import com.alibaba.fastjson.annotation.JSONField;
  *
  * @author Shunli
  */
-public class MassMessageForGroupDetail {
+public class MassMessageForGroupDetail extends AbstractToStringBuilder {
     @JSONField(name = "group_id")
     private String groupId;
 
@@ -27,8 +27,4 @@ public class MassMessageForGroupDetail {
         this.groupId = groupId;
     }
 
-    @Override
-    public String toString() {
-        return ToStringUtil.toString(this);
-    }
 }

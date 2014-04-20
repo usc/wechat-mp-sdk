@@ -1,6 +1,6 @@
 package org.usc.wechat.mp.sdk.vo.token;
 
-import org.usc.wechat.mp.sdk.util.ToStringUtil;
+import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
 
 import com.google.common.base.Objects;
 
@@ -8,7 +8,7 @@ import com.google.common.base.Objects;
  *
  * @author Shunli
  */
-public class License {
+public class License extends AbstractToStringBuilder{
     private String app;
     private String appId;
     private String appSecret;
@@ -50,11 +50,6 @@ public class License {
         return Objects.equal(this.app, other.app)
                 && Objects.equal(this.appId, other.appId)
                 && Objects.equal(this.appSecret, other.appSecret);
-    }
-
-    @Override
-    public String toString() {
-        return ToStringUtil.toString(this);
     }
 
 }

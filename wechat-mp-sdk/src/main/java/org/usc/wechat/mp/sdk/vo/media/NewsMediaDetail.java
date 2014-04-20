@@ -1,6 +1,6 @@
 package org.usc.wechat.mp.sdk.vo.media;
 
-import org.usc.wechat.mp.sdk.util.ToStringUtil;
+import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -8,7 +8,7 @@ import com.alibaba.fastjson.annotation.JSONField;
  *
  * @author Shunli
  */
-public class NewsMediaDetail {
+public class NewsMediaDetail extends AbstractToStringBuilder {
     @JSONField(name = "thumb_media_id")
     private String thumbMediaId;
 
@@ -93,8 +93,4 @@ public class NewsMediaDetail {
         this.digest = digest;
     }
 
-    @Override
-    public String toString() {
-        return ToStringUtil.toString(this);
-    }
 }

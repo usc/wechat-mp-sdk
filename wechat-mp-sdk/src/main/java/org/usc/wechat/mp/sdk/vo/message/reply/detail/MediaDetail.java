@@ -4,14 +4,14 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
-import org.usc.wechat.mp.sdk.util.ToStringUtil;
+import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
 
 /**
  *
  * @author Shunli
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class MediaDetail {
+public class MediaDetail extends AbstractToStringBuilder{
     @XmlElement(name = "MediaId")
     private String mediaId;
 
@@ -30,8 +30,4 @@ public class MediaDetail {
         this.mediaId = mediaId;
     }
 
-    @Override
-    public String toString() {
-        return ToStringUtil.toString(this);
-    }
 }

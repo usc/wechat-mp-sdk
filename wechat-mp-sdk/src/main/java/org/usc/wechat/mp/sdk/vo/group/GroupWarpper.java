@@ -1,12 +1,12 @@
 package org.usc.wechat.mp.sdk.vo.group;
 
-import org.usc.wechat.mp.sdk.util.ToStringUtil;
+import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
 
 /**
  *
  * @author Shunli
  */
-public class GroupWarpper {
+public class GroupWarpper extends AbstractToStringBuilder{
     private Group group;
 
     public GroupWarpper() {
@@ -24,8 +24,4 @@ public class GroupWarpper {
         this.group = group;
     }
 
-    @Override
-    public String toString() {
-        return ToStringUtil.toString(this);
-    }
 }

@@ -2,13 +2,13 @@ package org.usc.wechat.mp.sdk.vo.media;
 
 import java.io.File;
 
-import org.usc.wechat.mp.sdk.util.ToStringUtil;
+import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
 
 /**
  *
  * @author Shunli
  */
-public class MediaFile {
+public class MediaFile extends AbstractToStringBuilder {
     private MediaType mediaType;
     private File file;
 
@@ -34,11 +34,6 @@ public class MediaFile {
 
     public void setFile(File file) {
         this.file = file;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringUtil.toString(this);
     }
 
 }

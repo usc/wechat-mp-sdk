@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.usc.wechat.mp.sdk.util.ToStringUtil;
+import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
 
 /**
  *
@@ -13,7 +13,7 @@ import org.usc.wechat.mp.sdk.util.ToStringUtil;
  */
 @XmlRootElement(name = "xml")
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class Reply {
+public abstract class Reply extends AbstractToStringBuilder{
     @XmlElement(name = "ToUserName")
     private String toUserName;
 
@@ -80,8 +80,4 @@ public abstract class Reply {
         this.funcFlag = funcFlag;
     }
 
-    @Override
-    public String toString() {
-        return ToStringUtil.toString(this);
-    }
 }

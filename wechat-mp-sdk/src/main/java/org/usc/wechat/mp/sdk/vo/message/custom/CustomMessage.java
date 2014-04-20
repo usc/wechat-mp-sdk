@@ -1,6 +1,6 @@
 package org.usc.wechat.mp.sdk.vo.message.custom;
 
-import org.usc.wechat.mp.sdk.util.ToStringUtil;
+import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -8,7 +8,7 @@ import com.alibaba.fastjson.annotation.JSONField;
  *
  * @author Shunli
  */
-public abstract class CustomMessage {
+public abstract class CustomMessage extends AbstractToStringBuilder {
     @JSONField(name = "touser")
     private String toUser;
 
@@ -34,8 +34,4 @@ public abstract class CustomMessage {
         this.msgType = msgType;
     }
 
-    @Override
-    public String toString() {
-        return ToStringUtil.toString(this);
-    }
 }

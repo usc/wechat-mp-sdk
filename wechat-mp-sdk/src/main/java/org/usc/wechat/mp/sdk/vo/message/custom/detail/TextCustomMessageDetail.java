@@ -1,12 +1,14 @@
 package org.usc.wechat.mp.sdk.vo.message.custom.detail;
 
+import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 /**
  *
  * @author Shunli
  */
-public class TextCustomMessageDetail extends AbstractCustomMessageDetail {
+public class TextCustomMessageDetail extends AbstractToStringBuilder {
     @JSONField(name = "content")
     private String content;
 

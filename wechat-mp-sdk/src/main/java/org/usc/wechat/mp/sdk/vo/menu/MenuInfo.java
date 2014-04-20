@@ -1,6 +1,6 @@
 package org.usc.wechat.mp.sdk.vo.menu;
 
-import org.usc.wechat.mp.sdk.util.ToStringUtil;
+import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -8,7 +8,7 @@ import com.alibaba.fastjson.annotation.JSONField;
  *
  * @author Shunli
  */
-public abstract class MenuInfo {
+public abstract class MenuInfo  extends AbstractToStringBuilder{
     @JSONField(name = "name")
     private String name;
 
@@ -27,8 +27,4 @@ public abstract class MenuInfo {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return ToStringUtil.toString(this);
-    }
 }

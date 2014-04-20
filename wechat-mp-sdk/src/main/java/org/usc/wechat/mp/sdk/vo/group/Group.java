@@ -1,12 +1,12 @@
 package org.usc.wechat.mp.sdk.vo.group;
 
-import org.usc.wechat.mp.sdk.util.ToStringUtil;
+import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
 
 /**
  *
  * @author Shunli
  */
-public class Group {
+public class Group extends AbstractToStringBuilder {
     private int id;
     private String name;
     private int count;
@@ -42,8 +42,4 @@ public class Group {
         this.count = count;
     }
 
-    @Override
-    public String toString() {
-        return ToStringUtil.toString(this);
-    }
 }

@@ -2,7 +2,7 @@ package org.usc.wechat.mp.sdk.vo.user;
 
 import java.util.List;
 
-import org.usc.wechat.mp.sdk.util.ToStringUtil;
+import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -10,7 +10,7 @@ import com.alibaba.fastjson.annotation.JSONField;
  *
  * @author Shunli
  */
-public class OpenIdsJsonRtn {
+public class OpenIdsJsonRtn extends AbstractToStringBuilder {
     @JSONField(name = "openid")
     private List<String> openIds;
 
@@ -25,8 +25,4 @@ public class OpenIdsJsonRtn {
         this.openIds = openIds;
     }
 
-    @Override
-    public String toString() {
-        return ToStringUtil.toString(this);
-    }
 }

@@ -1,14 +1,12 @@
 package org.usc.wechat.mp.sdk.vo;
 
-import org.usc.wechat.mp.sdk.util.ToStringUtil;
-
 import com.alibaba.fastjson.annotation.JSONField;
 
 /**
  *
  * @author Shunli
  */
-public class JsonRtn {
+public class JsonRtn extends AbstractToStringBuilder{
     @JSONField(name = "errcode")
     private String errCode;
 
@@ -42,11 +40,6 @@ public class JsonRtn {
 
     public void setErrHumanMsg(String errHumanMsg) {
         this.errHumanMsg = errHumanMsg;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringUtil.toString(this);
     }
 
 }

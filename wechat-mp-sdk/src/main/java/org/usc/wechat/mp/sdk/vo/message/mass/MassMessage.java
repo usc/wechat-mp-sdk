@@ -1,6 +1,6 @@
 package org.usc.wechat.mp.sdk.vo.message.mass;
 
-import org.usc.wechat.mp.sdk.util.ToStringUtil;
+import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
@@ -8,7 +8,7 @@ import com.alibaba.fastjson.annotation.JSONField;
  *
  * @author Shunli
  */
-public abstract class MassMessage {
+public abstract class MassMessage extends AbstractToStringBuilder {
     @JSONField(name = "mpnews")
     private MassNews mpNews;
 
@@ -39,8 +39,4 @@ public abstract class MassMessage {
         this.msgType = msgType;
     }
 
-    @Override
-    public String toString() {
-        return ToStringUtil.toString(this);
-    }
 }

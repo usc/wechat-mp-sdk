@@ -1,12 +1,11 @@
 package org.usc.wechat.mp.sdk.vo;
 
-import org.usc.wechat.mp.sdk.util.ToStringUtil;
 
 /**
  *
  * @author Shunli
  */
-public class Signature {
+public class Signature extends AbstractToStringBuilder{
     private String token;
     private String signature;
     private String timestamp;
@@ -51,11 +50,6 @@ public class Signature {
 
     public void setEchostr(String echostr) {
         this.echostr = echostr;
-    }
-
-    @Override
-    public String toString() {
-        return ToStringUtil.toString(this);
     }
 
 }

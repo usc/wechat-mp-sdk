@@ -4,14 +4,14 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
-import org.usc.wechat.mp.sdk.util.ToStringUtil;
+import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
 
 /**
  *
  * @author Shunli
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class NewsDetail {
+public class NewsDetail extends AbstractToStringBuilder{
     @XmlElement(name = "Title")
     private String title;
 
@@ -70,8 +70,4 @@ public class NewsDetail {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return ToStringUtil.toString(this);
-    }
 }
