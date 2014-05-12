@@ -64,7 +64,7 @@ public enum PushEnumFactory {
     }
 
     public Reply parse(Push push) {
-        return pushParser.parse(push);
+        return push != null ? pushParser.parse(push) : null;
     }
 
 }

@@ -1,22 +1,17 @@
 package org.usc.wechat.mp.web.servlet;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.net.URI;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.Consts;
+import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.InputStreamEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
+import org.apache.http.entity.ContentType;
 
 /**
- *
+ * 
  * @author Shunli
  */
 public class AccessServletRealTest {
@@ -26,54 +21,33 @@ public class AccessServletRealTest {
     }
 
     private static void testGet() throws Exception {
-        HttpClient httpclient = new DefaultHttpClient();
+        String echoStr = RandomStringUtils.randomAlphabetic(36);
 
-        URIBuilder uriBuilder = new URIBuilder("http://localhost/wechat/mp/access");
-        uriBuilder.addParameter("echostr", RandomStringUtils.randomAlphabetic(36));
-        uriBuilder.addParameter("nonce", "1366260493");
-        uriBuilder.addParameter("timestamp", "1366238018");
-        uriBuilder.addParameter("signature", "9498eeaaca0b8a35f1b027498e0c0fb37fec5fa0");
+        URI uri = new URIBuilder("http://localhost/wechat/mp/access")
+                .addParameter("echostr", echoStr)
+                .addParameter("nonce", "1366260493")
+                .addParameter("timestamp", "1366238018")
+                .addParameter("signature", "9498eeaaca0b8a35f1b027498e0c0fb37fec5fa0")
+                .build();
 
-        HttpGet httpget = new HttpGet(uriBuilder.build());
-        try {
-            HttpResponse response = httpclient.execute(httpget);
-
-            if (response != null) {
-                System.out.println(response.getStatusLine());
-                System.out.println(EntityUtils.toString(response.getEntity()));
-            }
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            httpget.releaseConnection();
-        }
+        String rtn = Request.Get(uri).execute().returnContent().asString();
+        System.out.println(echoStr + " ==> " + rtn);
     }
 
     private static void testPost() throws Exception {
-        DefaultHttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://localhost/wechat/mp/access?nonce=1366260493&timestamp=1366238018&signature=9498eeaaca0b8a35f1b027498e0c0fb37fec5fa0");
+        URI uri = new URIBuilder("http://localhost/wechat/mp/access")
+                .addParameter("nonce", "1366260493")
+                .addParameter("timestamp", "1366238018")
+                .addParameter("signature", "9498eeaaca0b8a35f1b027498e0c0fb37fec5fa0")
+                .build();
 
-        File parent = new File(new AccessServletRealTest().getClass().getClassLoader().getResource("push").toURI());
-        File push = new File(parent, "text.txt");
-
-        InputStreamEntity streamEntity = new InputStreamEntity(new FileInputStream(push), push.length());
-        httppost.setEntity(streamEntity);
-        try {
-            HttpResponse response = httpclient.execute(httppost);
-
-            if (response != null) {
-                System.out.println(response.getStatusLine().getStatusCode());
-                System.out.println(EntityUtils.toString(response.getEntity()));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            httppost.abort();
-        } finally {
-            httppost.releaseConnection();
+        File parent = new File(AccessServletRealTest.class.getClassLoader().getResource("push").toURI());
+        for (File pushFile : parent.listFiles()) {
+            String body = FileUtils.readFileToString(pushFile);
+            String reply = Request.Post(uri)
+                    .bodyString(body, ContentType.create("text/html", Consts.UTF_8))
+                    .execute().returnContent().asString();
+            System.out.println(pushFile + "\n" + body + "\n" + reply + "\n");
         }
-
     }
 }
