@@ -1,4 +1,4 @@
-package org.usc.wechat.mp.sdk.vo.push;
+package org.usc.wechat.mp.sdk.vo.push.event;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -6,29 +6,14 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * 
  * @author Shunli
  */
 @XmlRootElement(name = "xml")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class EventPush extends Push {
-    @XmlElement(name = "Event")
-    private String event;
-
-    @XmlElement(name = "EventKey")
-    private String eventKey;
-
-    @XmlElement(name = "Ticket")
-    private String ticket;
-
-    @XmlElement(name = "Latitude")
-    private String latitude;
-
-    @XmlElement(name = "Longitude")
-    private String longitude;
-
-    @XmlElement(name = "Precision")
-    private String precision;
+public class MassEndJobFinishEventPush extends EventPush {
+    @XmlElement(name = "MsgID")
+    private String massMsgId;
 
     @XmlElement(name = "Status")
     private String status;
@@ -45,52 +30,15 @@ public class EventPush extends Push {
     @XmlElement(name = "ErrorCount")
     private long errorCount;
 
-    public String getEvent() {
-        return event;
+    public MassEndJobFinishEventPush() {
     }
 
-    public void setEvent(String event) {
-        this.event = event;
+    public String getMassMsgId() {
+        return massMsgId;
     }
 
-    public String getEventKey() {
-        return eventKey;
-    }
-
-    public void setEventKey(String eventKey) {
-        this.eventKey = eventKey;
-    }
-
-    public String getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(String ticket) {
-        this.ticket = ticket;
-    }
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getPrecision() {
-        return precision;
-    }
-
-    public void setPrecision(String precision) {
-        this.precision = precision;
+    public void setMassMsgId(String massMsgId) {
+        this.massMsgId = massMsgId;
     }
 
     public String getStatus() {

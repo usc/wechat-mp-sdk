@@ -13,65 +13,35 @@ import org.usc.wechat.mp.sdk.vo.ReplyDetail;
 import org.usc.wechat.mp.sdk.vo.message.reply.Reply;
 
 /**
- *
+ * 
  * @author Shunli
  */
 public enum ReplyEnumFactory {
-    TEXT("text") {
-        @Override
-        protected ReplyBuilder getReplyBuilder() {
-            return new TextReplyBuilder();
-        }
-    },
-    NEWS("news") {
-        @Override
-        protected ReplyBuilder getReplyBuilder() {
-            return new NewsReplyBuilder();
-        }
-    },
-    MUSIC("music") {
-        @Override
-        protected ReplyBuilder getReplyBuilder() {
-            return new MusicReplyBuilder();
-        }
-    },
-    IMAGE("image") {
-        @Override
-        protected ReplyBuilder getReplyBuilder() {
-            return new ImageReplyBuilder();
-        }
-    },
-    VOICE("voice") {
-        @Override
-        protected ReplyBuilder getReplyBuilder() {
-            return new VoiceReplyBuilder();
-        }
-    },
-    VIDEO("video") {
-        @Override
-        protected ReplyBuilder getReplyBuilder() {
-            return new VideoReplyBuilder();
-        }
-    };
+    TEXT("text", new TextReplyBuilder()),
+    NEWS("news", new NewsReplyBuilder()),
+    MUSIC("music", new MusicReplyBuilder()),
+    IMAGE("image", new ImageReplyBuilder()),
+    VOICE("voice", new VoiceReplyBuilder()),
+    VIDEO("video", new VideoReplyBuilder());
 
     private String replyType;
+    private ReplyBuilder replyBuilder;
 
-    private ReplyEnumFactory(String replyType) {
+    private ReplyEnumFactory(String replyType, ReplyBuilder replyBuilder) {
         this.replyType = replyType;
+        this.replyBuilder = replyBuilder;
     }
 
-    protected abstract ReplyBuilder getReplyBuilder();
+    public String getReplyType() {
+        return replyType;
+    }
 
     public Reply buildReply(List<ReplyDetail> replyDetails) {
         if (replyDetails == null || replyDetails.isEmpty()) {
             return null;
         }
 
-        return getReplyBuilder().buildReply(replyDetails);
-    }
-
-    public String getReplyType() {
-        return replyType;
+        return replyBuilder.buildReply(replyDetails);
     }
 
 }
