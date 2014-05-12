@@ -7,11 +7,11 @@ import javax.xml.bind.annotation.XmlElement;
 import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
 
 /**
- *
+ * 
  * @author Shunli
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class MusicDetail extends AbstractToStringBuilder{
+public class MusicDetail extends AbstractToStringBuilder {
     @XmlElement(name = "Title")
     private String title;
 
@@ -27,7 +27,7 @@ public class MusicDetail extends AbstractToStringBuilder{
     @XmlElement(name = "ThumbMediaId")
     private String thumbMediaId;
 
-    protected MusicDetail() {
+    public MusicDetail() {
     }
 
     public MusicDetail(String thumbMediaId) {

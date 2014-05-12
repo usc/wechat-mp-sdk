@@ -12,7 +12,7 @@ import org.usc.wechat.mp.sdk.factory.ReplyEnumFactory;
 import org.usc.wechat.mp.sdk.vo.message.reply.detail.NewsDetail;
 
 /**
- *
+ * 
  * @author Shunli
  */
 @XmlRootElement(name = "xml")
@@ -29,7 +29,7 @@ public class NewsReply extends Reply {
         super.setMsgType(ReplyEnumFactory.NEWS.getReplyType());
     }
 
-    protected NewsReply() {
+    public NewsReply() {
     }
 
     public NewsReply(int articleCount, List<NewsDetail> articles) {

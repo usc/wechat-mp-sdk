@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- *
+ * 
  * @author Shunli
  */
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -16,7 +16,7 @@ public class VideoDetail extends MediaDetail {
     @XmlElement(name = "Description")
     private String description;
 
-    protected VideoDetail() {
+    public VideoDetail() {
     }
 
     public VideoDetail(String mediaId) {

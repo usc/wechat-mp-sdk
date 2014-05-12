@@ -7,15 +7,15 @@ import javax.xml.bind.annotation.XmlElement;
 import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
 
 /**
- *
+ * 
  * @author Shunli
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class MediaDetail extends AbstractToStringBuilder{
+public class MediaDetail extends AbstractToStringBuilder {
     @XmlElement(name = "MediaId")
     private String mediaId;
 
-    protected MediaDetail() {
+    public MediaDetail() {
     }
 
     public MediaDetail(String mediaId) {

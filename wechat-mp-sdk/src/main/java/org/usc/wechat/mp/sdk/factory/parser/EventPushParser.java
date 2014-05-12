@@ -10,13 +10,13 @@ import org.usc.wechat.mp.sdk.vo.push.Push;
 import org.usc.wechat.mp.sdk.vo.push.event.EventPush;
 
 /**
- *
+ * 
  * @author Shunli
  */
 public class EventPushParser implements PushParser {
     @Override
     public Reply parse(Push push) {
-        if (!(push instanceof EventPush)) {
+        if (!(EventPush.class.isAssignableFrom(push.getClass()))) {
             return null;
         }
 

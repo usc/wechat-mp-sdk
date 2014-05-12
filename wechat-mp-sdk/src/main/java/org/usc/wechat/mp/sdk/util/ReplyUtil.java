@@ -12,7 +12,7 @@ import org.usc.wechat.mp.sdk.vo.message.reply.Reply;
 import org.usc.wechat.mp.sdk.vo.push.Push;
 
 /**
- *
+ * 
  * @author Shunli
  */
 public class ReplyUtil {

@@ -9,7 +9,7 @@ import org.usc.wechat.mp.sdk.factory.ReplyEnumFactory;
 import org.usc.wechat.mp.sdk.vo.message.reply.detail.VideoDetail;
 
 /**
- *
+ * 
  * @author Shunli
  */
 @XmlRootElement(name = "xml")
@@ -22,7 +22,7 @@ public class VideoReply extends Reply {
         super.setMsgType(ReplyEnumFactory.VIDEO.getReplyType());
     }
 
-    protected VideoReply() {
+    public VideoReply() {
     }
 
     public VideoReply(VideoDetail videoDetail) {

@@ -7,11 +7,11 @@ import javax.xml.bind.annotation.XmlElement;
 import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
 
 /**
- *
+ * 
  * @author Shunli
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class NewsDetail extends AbstractToStringBuilder{
+public class NewsDetail extends AbstractToStringBuilder {
     @XmlElement(name = "Title")
     private String title;
 
@@ -24,7 +24,7 @@ public class NewsDetail extends AbstractToStringBuilder{
     @XmlElement(name = "Url")
     private String url;
 
-    protected NewsDetail() {
+    public NewsDetail() {
     }
 
     public NewsDetail(String url) {

@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.usc.wechat.mp.sdk.factory.ReplyEnumFactory;
 
 /**
- *
+ * 
  * @author Shunli
  */
 @XmlRootElement(name = "xml")
@@ -21,7 +21,7 @@ public class TextReply extends Reply {
         super.setMsgType(ReplyEnumFactory.TEXT.getReplyType());
     }
 
-    protected TextReply() {
+    public TextReply() {
     }
 
     public TextReply(String content) {
