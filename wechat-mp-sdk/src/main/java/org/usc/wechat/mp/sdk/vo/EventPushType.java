@@ -6,7 +6,7 @@ import org.usc.wechat.mp.sdk.vo.push.event.MassEndJobFinishEventPush;
 import org.usc.wechat.mp.sdk.vo.push.event.NormalEventPush;
 
 /**
- * 
+ *
  * @author Shunli
  */
 public enum EventPushType {

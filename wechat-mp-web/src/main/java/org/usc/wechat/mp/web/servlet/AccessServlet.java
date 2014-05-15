@@ -29,7 +29,7 @@ import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 
 /**
- * 
+ *
  * @author Shunli
  */
 @WebServlet(urlPatterns = "/access")

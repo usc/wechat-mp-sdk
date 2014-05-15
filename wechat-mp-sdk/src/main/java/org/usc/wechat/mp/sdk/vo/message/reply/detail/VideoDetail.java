@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * 
+ *
  * @author Shunli
  */
 @XmlAccessorType(XmlAccessType.FIELD)

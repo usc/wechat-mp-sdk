@@ -13,7 +13,7 @@ import org.usc.wechat.mp.sdk.vo.ReplyDetail;
 import org.usc.wechat.mp.sdk.vo.message.reply.Reply;
 
 /**
- * 
+ *
  * @author Shunli
  */
 public enum ReplyEnumFactory {

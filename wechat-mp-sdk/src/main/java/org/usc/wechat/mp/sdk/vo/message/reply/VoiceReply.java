@@ -9,7 +9,7 @@ import org.usc.wechat.mp.sdk.factory.ReplyEnumFactory;
 import org.usc.wechat.mp.sdk.vo.message.reply.detail.MediaDetail;
 
 /**
- * 
+ *
  * @author Shunli
  */
 @XmlRootElement(name = "xml")

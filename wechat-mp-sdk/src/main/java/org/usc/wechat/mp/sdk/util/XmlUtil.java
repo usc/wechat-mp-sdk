@@ -14,7 +14,7 @@ import com.google.common.collect.Lists;
 
 /**
  * xml <-> object
- * 
+ *
  * @author Shunli
  */
 public class XmlUtil {
@@ -29,7 +29,7 @@ public class XmlUtil {
 
     /**
      * xml -> object
-     * 
+     *
      * @param message
      * @param childClass
      * @return
@@ -49,7 +49,7 @@ public class XmlUtil {
 
     /**
      * object -> xml
-     * 
+     *
      * @param object
      * @param childClass
      */

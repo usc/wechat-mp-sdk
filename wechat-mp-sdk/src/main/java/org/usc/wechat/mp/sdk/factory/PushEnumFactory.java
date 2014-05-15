@@ -23,7 +23,7 @@ import org.usc.wechat.mp.sdk.vo.push.VoicePush;
 import org.usc.wechat.mp.sdk.vo.push.event.NormalEventPush;
 
 /**
- * 
+ *
  * @author Shunli
  */
 public enum PushEnumFactory {

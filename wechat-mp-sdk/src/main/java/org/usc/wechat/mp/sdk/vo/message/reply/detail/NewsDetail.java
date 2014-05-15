@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 import org.usc.wechat.mp.sdk.vo.AbstractToStringBuilder;
 
 /**
- * 
+ *
  * @author Shunli
  */
 @XmlAccessorType(XmlAccessType.FIELD)

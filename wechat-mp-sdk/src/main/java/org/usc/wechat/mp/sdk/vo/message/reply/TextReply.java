@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.usc.wechat.mp.sdk.factory.ReplyEnumFactory;
 
 /**
- * 
+ *
  * @author Shunli
  */
 @XmlRootElement(name = "xml")

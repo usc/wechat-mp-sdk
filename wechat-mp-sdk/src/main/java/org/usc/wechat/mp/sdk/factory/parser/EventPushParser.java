@@ -10,7 +10,7 @@ import org.usc.wechat.mp.sdk.vo.push.Push;
 import org.usc.wechat.mp.sdk.vo.push.event.EventPush;
 
 /**
- * 
+ *
  * @author Shunli
  */
 public class EventPushParser implements PushParser {

@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.usc.wechat.mp.sdk.factory.PushEnumFactory;
 
 /**
- * 
+ *
  * @author Shunli
  */
 public class PushTest {
