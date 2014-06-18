@@ -73,17 +73,20 @@ public class HttpUtil {
         String requestName = request.getName();
         List<NameValuePair> nameValuePairs = buildNameValuePairs(license, paramMap);
 
-        try {
-            URI uri = new URIBuilder(requestUrl).setParameters(nameValuePairs).build();
+        URI uri = buildURI(requestUrl, nameValuePairs);
+        if (uri == null) {
+            return JsonRtnUtil.buildFaileJsonRtn(jsonRtnClazz, "build request URI failed");
+        }
 
+        try {
             String json = Request.Get(uri).execute().handleResponse(HttpUtil.UTF8_CONTENT_HANDLER);
             T jsonRtn = JsonRtnUtil.parseJsonRtn(json, jsonRtnClazz);
             log.info(requestName + " result:\n url={},\n rtn={},\n {}", uri, json, jsonRtn);
             return jsonRtn;
         } catch (Exception e) {
-            String msg = requestName + " failed:\n url=" + requestUrl + "\n params=" + nameValuePairs;
+            String msg = requestName + " failed:\n url=" + uri;
             log.error(msg, e);
-            return null;
+            return JsonRtnUtil.buildFaileJsonRtn(jsonRtnClazz, "get request server failed");
         }
     }
 
@@ -101,9 +104,12 @@ public class HttpUtil {
         List<NameValuePair> nameValuePairs = buildNameValuePairs(license, paramMap);
         String body = JSONObject.toJSONString(requestBody);
 
-        try {
-            URI uri = new URIBuilder(requestUrl).setParameters(nameValuePairs).build();
+        URI uri = buildURI(requestUrl, nameValuePairs);
+        if (uri == null) {
+            return JsonRtnUtil.buildFaileJsonRtn(jsonRtnClazz, "build request URI failed");
+        }
 
+        try {
             String rtnJson = Request.Post(uri)
                     .bodyString(body, ContentType.create("text/html", Consts.UTF_8))
                     .execute().handleResponse(HttpUtil.UTF8_CONTENT_HANDLER);
@@ -112,9 +118,9 @@ public class HttpUtil {
             log.info(requestName + " result:\n url={},\n body={},\n rtn={},\n {}", uri, body, rtnJson, jsonRtn);
             return jsonRtn;
         } catch (Exception e) {
-            String msg = requestName + " failed:\n url=" + requestUrl + "\n params=" + nameValuePairs + ",\n body=" + body;
+            String msg = requestName + " failed:\n url=" + uri + ",\n body=" + body;
             log.error(msg, e);
-            return null;
+            return JsonRtnUtil.buildFaileJsonRtn(jsonRtnClazz, "post request server failed");
         }
     }
 
@@ -125,5 +131,15 @@ public class HttpUtil {
             Iterables.addAll(nameValuePairs, Iterables.transform(paramMap.entrySet(), nameValueTransformFunction));
         }
         return nameValuePairs;
+    }
+
+    private static URI buildURI(String requestUrl, List<NameValuePair> nameValuePairs) {
+        try {
+            return new URIBuilder(requestUrl).setParameters(nameValuePairs).build();
+        } catch (Exception e) {
+            String msg = "build URI failed:\n url=" + requestUrl + "\n params=" + nameValuePairs;
+            log.error(msg, e);
+            return null;
+        }
     }
 }

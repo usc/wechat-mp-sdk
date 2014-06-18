@@ -73,4 +73,18 @@ public class JsonRtnUtil {
 
         return false;
     }
+
+    public static <T extends JsonRtn> T buildFaileJsonRtn(Class<T> jsonRtnClazz, String errMsg) {
+        try {
+            T jsonRtn = jsonRtnClazz.newInstance();
+            jsonRtn.setErrCode("-1");
+            jsonRtn.setErrMsg(errMsg);
+
+            appendErrorHumanMsg(jsonRtn);
+
+            return jsonRtn;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
