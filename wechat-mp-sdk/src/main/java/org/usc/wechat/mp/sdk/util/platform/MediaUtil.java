@@ -60,8 +60,8 @@ public class MediaUtil {
                     .build();
 
             String rtnJson = Request.Post(uri)
-                    // .connectTimeout(100000)
-                    // .socketTimeout(100000)
+                    .connectTimeout(HttpUtil.CONNECT_TIMEOUT)
+                    .socketTimeout(HttpUtil.SOCKET_TIMEOUT)
                     .body(httpEntity)
                     .execute().handleResponse(HttpUtil.UTF8_CONTENT_HANDLER);
 
@@ -97,7 +97,10 @@ public class MediaUtil {
                     .setParameter("media_id", mediaId)
                     .build();
 
-            HttpResponse response = Request.Get(uri).execute().returnResponse();
+            HttpResponse response = Request.Get(uri)
+                    .connectTimeout(HttpUtil.CONNECT_TIMEOUT)
+                    .socketTimeout(HttpUtil.SOCKET_TIMEOUT)
+                    .execute().returnResponse();
             return downloadFile(response, mediaId, path, uri);
         } catch (Exception e) {
             String msg = "get media failed:\n " +

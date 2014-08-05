@@ -9,6 +9,7 @@ import org.apache.http.client.fluent.Request;
 import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.usc.wechat.mp.sdk.util.HttpUtil;
 import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
 import org.usc.wechat.mp.sdk.vo.WechatRequest;
 import org.usc.wechat.mp.sdk.vo.token.AccessTokenJsonRtn;
@@ -39,7 +40,10 @@ public class AccessTokenUtil {
                     .build();
             log.info("get access token for {}, url = {}", license, uri);
 
-            String json = Request.Get(uri).execute().returnContent().asString();
+            String json = Request.Get(uri)
+                    .connectTimeout(HttpUtil.CONNECT_TIMEOUT)
+                    .socketTimeout(HttpUtil.SOCKET_TIMEOUT)
+                    .execute().returnContent().asString();
             log.info("get access token for {}, rtn = {}", license, json);
 
             AccessTokenJsonRtn rtn = JsonRtnUtil.parseJsonRtn(json, AccessTokenJsonRtn.class);

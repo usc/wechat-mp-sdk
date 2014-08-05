@@ -36,13 +36,16 @@ import com.google.common.collect.Lists;
  * @author Shunli
  */
 public class HttpUtil {
-    private final static Logger log = LoggerFactory.getLogger(HttpUtil.class);
+    private static final Logger log = LoggerFactory.getLogger(HttpUtil.class);
     private static final Function<Map.Entry<String, String>, NameValuePair> nameValueTransformFunction = new Function<Map.Entry<String, String>, NameValuePair>() {
         @Override
         public NameValuePair apply(final Map.Entry<String, String> input) {
             return new BasicNameValuePair(input.getKey(), input.getValue());
         }
     };
+
+    public static final int CONNECT_TIMEOUT = 2000;
+    public static final int SOCKET_TIMEOUT = 2000;
 
     /**
      * handle response's entity to utf8 text
@@ -79,7 +82,10 @@ public class HttpUtil {
         }
 
         try {
-            String json = Request.Get(uri).execute().handleResponse(HttpUtil.UTF8_CONTENT_HANDLER);
+            String json = Request.Get(uri)
+                    .connectTimeout(CONNECT_TIMEOUT)
+                    .socketTimeout(SOCKET_TIMEOUT)
+                    .execute().handleResponse(HttpUtil.UTF8_CONTENT_HANDLER);
             T jsonRtn = JsonRtnUtil.parseJsonRtn(json, jsonRtnClazz);
             log.info(requestName + " result:\n url={},\n rtn={},\n {}", uri, json, jsonRtn);
             return jsonRtn;
@@ -111,6 +117,8 @@ public class HttpUtil {
 
         try {
             String rtnJson = Request.Post(uri)
+                    .connectTimeout(CONNECT_TIMEOUT)
+                    .socketTimeout(SOCKET_TIMEOUT)
                     .bodyString(body, ContentType.create("text/html", Consts.UTF_8))
                     .execute().handleResponse(HttpUtil.UTF8_CONTENT_HANDLER);
 

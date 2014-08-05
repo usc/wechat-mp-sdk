@@ -44,7 +44,10 @@ public class MenuUtil {
                     .setParameter("access_token", accessToken)
                     .build();
 
-            String json = Request.Get(uri).execute().handleResponse(HttpUtil.UTF8_CONTENT_HANDLER);
+            String json = Request.Get(uri)
+                    .connectTimeout(HttpUtil.CONNECT_TIMEOUT)
+                    .socketTimeout(HttpUtil.SOCKET_TIMEOUT)
+                    .execute().handleResponse(HttpUtil.UTF8_CONTENT_HANDLER);
             Menu menu = buildMenu(json);
             log.info("get menu:\n url={},\n rtn={},{}", uri, json, menu);
             return menu;
