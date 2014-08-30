@@ -78,7 +78,7 @@ public class HttpUtil {
 
         URI uri = buildURI(requestUrl, nameValuePairs);
         if (uri == null) {
-            return JsonRtnUtil.buildFaileJsonRtn(jsonRtnClazz, "build request URI failed");
+            return JsonRtnUtil.buildFailureJsonRtn(jsonRtnClazz, "build request URI failed");
         }
 
         try {
@@ -92,7 +92,7 @@ public class HttpUtil {
         } catch (Exception e) {
             String msg = requestName + " failed:\n url=" + uri;
             log.error(msg, e);
-            return JsonRtnUtil.buildFaileJsonRtn(jsonRtnClazz, "get request server failed");
+            return JsonRtnUtil.buildFailureJsonRtn(jsonRtnClazz, "get request server failed");
         }
     }
 
@@ -102,7 +102,7 @@ public class HttpUtil {
 
     public static <T extends JsonRtn> T postBodyRequest(WechatRequest request, License license, Map<String, String> paramMap, Object requestBody, Class<T> jsonRtnClazz) {
         if (request == null || license == null || requestBody == null || jsonRtnClazz == null) {
-            return null;
+            return JsonRtnUtil.buildFailureJsonRtn(jsonRtnClazz, "missing post request params");
         }
 
         String requestUrl = request.getUrl();
@@ -112,7 +112,7 @@ public class HttpUtil {
 
         URI uri = buildURI(requestUrl, nameValuePairs);
         if (uri == null) {
-            return JsonRtnUtil.buildFaileJsonRtn(jsonRtnClazz, "build request URI failed");
+            return JsonRtnUtil.buildFailureJsonRtn(jsonRtnClazz, "build request URI failed");
         }
 
         try {
@@ -128,7 +128,7 @@ public class HttpUtil {
         } catch (Exception e) {
             String msg = requestName + " failed:\n url=" + uri + ",\n body=" + body;
             log.error(msg, e);
-            return JsonRtnUtil.buildFaileJsonRtn(jsonRtnClazz, "post request server failed");
+            return JsonRtnUtil.buildFailureJsonRtn(jsonRtnClazz, "post request server failed");
         }
     }
 

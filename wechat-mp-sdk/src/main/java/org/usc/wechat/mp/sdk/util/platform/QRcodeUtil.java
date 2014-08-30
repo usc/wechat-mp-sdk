@@ -7,6 +7,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.usc.wechat.mp.sdk.util.HttpUtil;
+import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
 import org.usc.wechat.mp.sdk.vo.WechatRequest;
 import org.usc.wechat.mp.sdk.vo.qrcode.QRcodeActionInfo;
 import org.usc.wechat.mp.sdk.vo.qrcode.QRcodeScene;
@@ -26,7 +27,7 @@ public class QRcodeUtil {
 
     public static QRcodeTicketJsonRtn createTemporaryQRcode(License license, long sceneId, int expireSeconds) {
         if (expireSeconds <= 0) {
-            return null;
+            return JsonRtnUtil.buildFailureJsonRtn(QRcodeTicketJsonRtn.class, "expireSeconds must be positive");
         }
         expireSeconds = Ints.min(expireSeconds, 1800);
         QRcodeActionInfo actionInfo = new QRcodeActionInfo(new QRcodeScene(sceneId));
@@ -35,7 +36,7 @@ public class QRcodeUtil {
 
     public static QRcodeTicketJsonRtn createPermanentQRcode(License license, long sceneId) {
         if (sceneId < 0 || sceneId > 100000) {
-            return null;
+            return JsonRtnUtil.buildFailureJsonRtn(QRcodeTicketJsonRtn.class, "sceneId must be within the range [0,100000]");
         }
 
         QRcodeActionInfo actionInfo = new QRcodeActionInfo(new QRcodeScene(sceneId));

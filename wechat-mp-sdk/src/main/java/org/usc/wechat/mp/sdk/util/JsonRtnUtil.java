@@ -74,7 +74,7 @@ public class JsonRtnUtil {
         return false;
     }
 
-    public static <T extends JsonRtn> T buildFaileJsonRtn(Class<T> jsonRtnClazz, String errMsg) {
+    public static <T extends JsonRtn> T buildFailureJsonRtn(Class<T> jsonRtnClazz, String errMsg) {
         try {
             T jsonRtn = jsonRtnClazz.newInstance();
             jsonRtn.setErrCode("-1");

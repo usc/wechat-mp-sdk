@@ -10,6 +10,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.usc.wechat.mp.sdk.util.HttpUtil;
+import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
 import org.usc.wechat.mp.sdk.vo.JsonRtn;
 import org.usc.wechat.mp.sdk.vo.WechatRequest;
 import org.usc.wechat.mp.sdk.vo.menu.Menu;
@@ -30,7 +31,7 @@ public class MenuUtil {
 
     public static JsonRtn createMenu(License license, Menu menu) {
         if (menu == null) {
-            return null;
+            return JsonRtnUtil.buildFailureJsonRtn(JsonRtn.class, "missing menu");
         }
 
         return HttpUtil.postBodyRequest(WechatRequest.CREATE_MENU, license, menu, JsonRtn.class);

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.usc.wechat.mp.sdk.util.HttpUtil;
+import org.usc.wechat.mp.sdk.util.JsonRtnUtil;
 import org.usc.wechat.mp.sdk.vo.WechatRequest;
 import org.usc.wechat.mp.sdk.vo.token.License;
 import org.usc.wechat.mp.sdk.vo.user.UserInfoJsonRtn;
@@ -23,7 +24,7 @@ public class UserUtil {
 
     public static UserInfoJsonRtn getUserInfo(License license, String openId, Locale local) {
         if (StringUtils.isEmpty(openId)) {
-            return null;
+            return JsonRtnUtil.buildFailureJsonRtn(UserInfoJsonRtn.class, "missing openId");
         }
 
         String lang = local != null ? local.toString() : StringUtils.EMPTY;
@@ -39,4 +40,5 @@ public class UserUtil {
         Map<String, String> paramMap = ImmutableMap.of("next_openid", StringUtils.defaultString(nextOpenId));
         return HttpUtil.getRequest(WechatRequest.GET_USERS, license, paramMap, UsersJsonRtn.class);
     }
+
 }

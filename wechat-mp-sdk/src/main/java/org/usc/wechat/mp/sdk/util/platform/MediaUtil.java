@@ -42,7 +42,7 @@ public class MediaUtil {
     // TODO-Shunli: now upload video always failed, tip system error, check later
     public static MediaJsonRtn uploadMedia(License license, MediaFile mediaFile) {
         if (mediaFile == null) {
-            return null;
+            return JsonRtnUtil.buildFailureJsonRtn(MediaJsonRtn.class, "missing mediaFile");
         }
         // maybe todo more mediaFile legality check
 
@@ -72,13 +72,13 @@ public class MediaUtil {
             String msg = "upload media failed:\n " +
                     "url=" + url + "?access_token=" + accessToken + ",\n body=" + mediaFile;
             log.error(msg, e);
-            return null;
+            return JsonRtnUtil.buildFailureJsonRtn(MediaJsonRtn.class, "uploadMedia failed");
         }
     }
 
     public static MediaJsonRtn uploadNewsMedia(License license, NewsMedia newsMedia) {
         if (newsMedia == null) {
-            return null;
+            return JsonRtnUtil.buildFailureJsonRtn(MediaJsonRtn.class, "missing newsMedia");
         }
 
         return HttpUtil.postBodyRequest(WechatRequest.UPLOAD_NEWS_MEDIA, license, newsMedia, MediaJsonRtn.class);
