@@ -29,6 +29,7 @@ public enum WechatRequest {
 
     GET_USER_INFO("https://api.weixin.qq.com/cgi-bin/user/info"),
     GET_USERS("https://api.weixin.qq.com/cgi-bin/user/get"),
+    UPDATE_REMARK("https://api.weixin.qq.com/cgi-bin/user/info/updateremark"),
 
     CREATE_QRCODE("https://api.weixin.qq.com/cgi-bin/qrcode/create"),
     SHOW_QRCODE("https://mp.weixin.qq.com/cgi-bin/showqrcode");
