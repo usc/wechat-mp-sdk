@@ -16,7 +16,6 @@ import org.usc.wechat.mp.sdk.vo.message.custom.detail.MediaCustomMessageDetail;
 import org.usc.wechat.mp.sdk.vo.message.custom.detail.MusicCustomMessageDetail;
 import org.usc.wechat.mp.sdk.vo.message.custom.detail.TextCustomMessageDetail;
 import org.usc.wechat.mp.sdk.vo.message.custom.detail.VideoCustomMessageDetail;
-import org.usc.wechat.mp.sdk.vo.token.License;
 
 import com.google.common.collect.ImmutableList;
 
@@ -25,8 +24,6 @@ import com.google.common.collect.ImmutableList;
  * @author Shunli
  */
 public class MessageUtilTest {
-    private static final License license = new License("test", "wxafc93a29c1e2a59f", "5613787a72659cf3fae3bf1a5152b17b");
-
     public static void main(String[] args) {
         testCustomMessage();
         testMassMessage();
@@ -63,16 +60,16 @@ public class MessageUtilTest {
 
     private static void doSendMsg(CustomMessage msg) {
         msg.setToUser("oVDIDt3_SMFnLBBfmQtr67oYT3NI");
-        MessageUtil.sendCustomMessage(license, msg);
+        MessageUtil.sendCustomMessage(Constants.LICENSE, msg);
     }
 
     private static void testMassMessage() {
         String mediaId = "OS3XEqCEjSgIzp_ggt5yLihCThfcMM2NafRgWj44tRSKjjNGvHDxQbTZ7nIpEhlI";
-        System.out.println(MessageUtil.sendMassMessageByGroup(license, "1", mediaId));
+        System.out.println(MessageUtil.sendMassMessageByGroup(Constants.LICENSE, "1", mediaId));
 
         List<String> openIds = ImmutableList.of("oVDIDt3_SMFnLBBfmQtr67oYT3NI", "oVDIDt_SyuhqP7WF7zliVZrqY2wY");
-        System.out.println(MessageUtil.sendMassMessageByUsers(license, openIds, mediaId));
+        System.out.println(MessageUtil.sendMassMessageByUsers(Constants.LICENSE, openIds, mediaId));
 
-        System.out.println(MessageUtil.deleteMassMessage(license, 34182));
+        System.out.println(MessageUtil.deleteMassMessage(Constants.LICENSE, 34182));
     }
 }
