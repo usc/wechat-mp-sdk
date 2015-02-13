@@ -100,44 +100,67 @@ public class HttpUtil {
         return postBodyRequest(request, license, null, requestBody, jsonRtnClazz);
     }
 
+    public static <T extends JsonRtn> T postBodyRequest(WechatRequest request, License license, Map<String, String> paramMap, Class<T> jsonRtnClazz) {
+        return postBodyRequest(request, license, paramMap, null, jsonRtnClazz);
+    }
+
     public static <T extends JsonRtn> T postBodyRequest(WechatRequest request, License license, Map<String, String> paramMap, Object requestBody, Class<T> jsonRtnClazz) {
-        if (request == null || license == null || requestBody == null || jsonRtnClazz == null) {
+        if (request == null || license == null || jsonRtnClazz == null) {
             return JsonRtnUtil.buildFailureJsonRtn(jsonRtnClazz, "missing post request params");
         }
 
         String requestUrl = request.getUrl();
         String requestName = request.getName();
-        List<NameValuePair> nameValuePairs = buildNameValuePairs(license, paramMap);
-        String body = JSONObject.toJSONString(requestBody);
+        List<NameValuePair> form = buildNameValuePairs(paramMap);
+        String body = requestBody != null ? JSONObject.toJSONString(requestBody) : StringUtils.EMPTY;
 
-        URI uri = buildURI(requestUrl, nameValuePairs);
+        URI uri = buildURI(requestUrl, buildNameValuePairs(license));
         if (uri == null) {
             return JsonRtnUtil.buildFailureJsonRtn(jsonRtnClazz, "build request URI failed");
         }
 
         try {
-            String rtnJson = Request.Post(uri)
+            Request post = Request.Post(uri)
                     .connectTimeout(CONNECT_TIMEOUT)
-                    .socketTimeout(SOCKET_TIMEOUT)
-                    .bodyString(body, ContentType.create("text/html", Consts.UTF_8))
-                    .execute().handleResponse(HttpUtil.UTF8_CONTENT_HANDLER);
+                    .socketTimeout(SOCKET_TIMEOUT);
+            if (paramMap != null) {
+                post.bodyForm(form);
+            }
+            if (StringUtils.isNoneEmpty(body)) {
+                post.bodyString(body, ContentType.create("text/html", Consts.UTF_8));
+            }
+
+            String rtnJson = post.execute().handleResponse(HttpUtil.UTF8_CONTENT_HANDLER);
 
             T jsonRtn = JsonRtnUtil.parseJsonRtn(rtnJson, jsonRtnClazz);
-            log.info(requestName + " result:\n url={},\n body={},\n rtn={},\n {}", uri, body, rtnJson, jsonRtn);
+            log.info(requestName + " result:\n url={},\n form={},\n body={},\n rtn={},\n {}", uri, form, body, rtnJson, jsonRtn);
             return jsonRtn;
         } catch (Exception e) {
-            String msg = requestName + " failed:\n url=" + uri + ",\n body=" + body;
+            String msg = requestName + " failed:\n url=" + uri + ",\n form=" + form + ",\n body=" + body;
             log.error(msg, e);
             return JsonRtnUtil.buildFailureJsonRtn(jsonRtnClazz, "post request server failed");
         }
     }
 
+    private static List<NameValuePair> buildNameValuePairs(License license) {
+        return buildNameValuePairs(license, null);
+    }
+
+    private static List<NameValuePair> buildNameValuePairs(Map<String, String> paramMap) {
+        return buildNameValuePairs(null, paramMap);
+    }
+
     private static List<NameValuePair> buildNameValuePairs(License license, Map<String, String> paramMap) {
         List<NameValuePair> nameValuePairs = Lists.newArrayList();
-        nameValuePairs.add(new BasicNameValuePair("access_token", AccessTokenUtil.getAccessToken(license)));
+
+        if (license != null) {
+            nameValuePairs.add(new BasicNameValuePair("access_token", AccessTokenUtil.getAccessToken(license)));
+        }
+
         if (paramMap != null) {
             Iterables.addAll(nameValuePairs, Iterables.transform(paramMap.entrySet(), nameValueTransformFunction));
         }
+
         return nameValuePairs;
     }
 
@@ -150,4 +173,5 @@ public class HttpUtil {
             return null;
         }
     }
+
 }

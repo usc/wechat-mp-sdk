@@ -27,6 +27,7 @@
      生成带参数的二维码	    
 7. 基础接口 BasicUtil       
      获取微信服务器IP地址    
+     长链接转短链接接口      
 	 
 ## 被动相应消息的序列图
 <img src="wechat-mp-sdk/src/site/docs/wechat-mp-reply-sd.png?raw=true">

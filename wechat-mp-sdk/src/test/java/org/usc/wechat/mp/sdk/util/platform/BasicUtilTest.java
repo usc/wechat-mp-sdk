@@ -12,5 +12,8 @@ public class BasicUtilTest {
         for (String ip : callbackIp.getIpList()) {
             System.out.println(ip);
         }
+
+        String url = "www.google.com";
+        System.out.println(BasicUtil.shortUrl(Constants.LICENSE, url));
     }
 }

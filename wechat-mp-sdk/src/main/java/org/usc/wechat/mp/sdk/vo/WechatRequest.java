@@ -34,7 +34,9 @@ public enum WechatRequest {
     CREATE_QRCODE("https://api.weixin.qq.com/cgi-bin/qrcode/create"),
     SHOW_QRCODE("https://mp.weixin.qq.com/cgi-bin/showqrcode"),
 
-    GET_CALLBACK_IP("https://api.weixin.qq.com/cgi-bin/getcallbackip");
+    GET_CALLBACK_IP("https://api.weixin.qq.com/cgi-bin/getcallbackip"),
+    SHORT_URL("https://api.weixin.qq.com/cgi-bin/shorturl"),
+    ;
 
     private String url;
 
