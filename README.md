@@ -24,8 +24,9 @@
      自定义菜单删除接口	
      自定义菜单事件推送	
 6. 推广支持 QRcodeUtil	
-     生成带参数的二维码	
-
+     生成带参数的二维码	    
+7. 基础接口 BasicUtil       
+     获取微信服务器IP地址    
 	 
 ## 被动相应消息的序列图
 <img src="wechat-mp-sdk/src/site/docs/wechat-mp-reply-sd.png?raw=true">
