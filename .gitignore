@@ -2,3 +2,4 @@
 .project
 .settings/
 target/
+/wechat-mp-sdk/src/test/java/org/usc/wechat/mp/sdk/util/platform/office
