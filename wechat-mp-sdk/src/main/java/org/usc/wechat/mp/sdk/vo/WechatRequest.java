@@ -13,7 +13,7 @@ public enum WechatRequest {
     SEND_MASS_MESSAGE("https://api.weixin.qq.com/cgi-bin/message/mass/sendall"),
     DELETE_MASS_MESSAGE("https://api.weixin.qq.com//cgi-bin/message/mass/delete"),
 
-    UPLOAD_MEDIA("http://file.api.weixin.qq.com/cgi-bin/media/upload"),
+    UPLOAD_MEDIA("http://api.weixin.qq.com/cgi-bin/media/upload"),
     GET_MEDIA("http://file.api.weixin.qq.com/cgi-bin/media/get"),
     UPLOAD_NEWS_MEDIA("https://api.weixin.qq.com/cgi-bin/media/uploadnews"),
 
