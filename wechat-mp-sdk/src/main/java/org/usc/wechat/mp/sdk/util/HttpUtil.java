@@ -126,7 +126,7 @@ public class HttpUtil {
             if (paramMap != null) {
                 post.bodyForm(form);
             }
-            if (StringUtils.isNoneEmpty(body)) {
+            if (StringUtils.isNotEmpty(body)) {
                 post.bodyString(body, ContentType.create("text/html", Consts.UTF_8));
             }
 
